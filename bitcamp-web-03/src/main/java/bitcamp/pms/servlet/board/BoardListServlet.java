@@ -2,16 +2,16 @@ package bitcamp.pms.servlet.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.pms.dao.BoardDao;
+import bitcamp.pms.domain.Board;
 
 @SuppressWarnings("serial")
 @WebServlet("/board/list")
@@ -42,25 +42,20 @@ public class BoardListServlet extends HttpServlet {
         out.println("</tr>");
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try (
-                Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.209.8.213:3306/studydb",
-                    "study", "1111");
-                PreparedStatement stmt = con.prepareStatement(
-                    "select bno,titl,cdt from pms2_board");
-                ResultSet rs = stmt.executeQuery();) {
-                
-                while (rs.next()) {
-                    String bno = rs.getString("bno"); 
-                    out.println("<tr>");
-                    out.printf("<td>%s</td><td><a href='view?no=%s'>%s</a></td><td>%s</td>\n",
-                            bno,bno,
-                            rs.getString("titl"),
-                            rs.getDate("cdt"));
-                    out.println("</tr>");
-                }
-            }
+            BoardDao boardDao = new BoardDao(); 
+            
+             ArrayList<Board> list = boardDao.selectList();
+            
+             for(Board board : list) {
+                 int bno = board.getBno(); 
+                 out.println("<tr>");
+                 out.printf("<td>%d</td><td><a href='view?no=%s'>%s</a></td><td>%s</td>\n",
+                         bno,bno,
+                         board.getTitl(),
+                         board.getCdt());
+                 out.println("</tr>");
+             }
+
         } catch (Exception e) {
             out.println("<p>목록 가져오기 실패!</p>");
             e.printStackTrace(out);
@@ -69,5 +64,6 @@ public class BoardListServlet extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
     }
+    
 }
 
