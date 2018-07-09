@@ -1,9 +1,9 @@
 package bitcamp.pms.servlet.board;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,45 +24,25 @@ public class BoardListServlet extends HttpServlet {
         
         // 출력할 때 String 객체의 값(UTF-16)을 어떤 문자표를 사용하여 인코딩해서 보낼 것인지 설정한다.
         // => 반드시 출력 스트림을 얻기 전에 설정해야 한다.
+        // filter로 utf-8 처리를 넘김
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>게시물 목록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>게시물 목록</h1>");
-        out.println("<p><a href='form.html'>새 글</a></p>");
-        out.println("<table border='1'>");
-        out.println("<tr>");
-        out.println("    <th>번호</th><th>제목</th><th>등록일</th>");
-        out.println("</tr>");
-
         try {
             BoardDao boardDao = new BoardDao(); 
             
-             ArrayList<Board> list = boardDao.selectList();
-            
-             for(Board board : list) {
-                 int bno = board.getBno(); 
-                 out.println("<tr>");
-                 out.printf("<td>%d</td><td><a href='view?no=%s'>%s</a></td><td>%s</td>\n",
-                         bno,bno,
-                         board.getTitl(),
-                         board.getCdt());
-                 out.println("</tr>");
-             }
+             List<Board> list = boardDao.selectList();
+             
+             request.setAttribute("list", list);
+             
+             RequestDispatcher rd = request.getRequestDispatcher("/board/list.jsp");
+             rd.include(request, response);
+
 
         } catch (Exception e) {
-            out.println("<p>목록 가져오기 실패!</p>");
-            e.printStackTrace(out);
+            request.setAttribute("error", e);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
-        out.println("</table>");
-        out.println("</body>");
-        out.println("</html>");
+
     }
     
 }

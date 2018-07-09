@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import bitcamp.pms.domain.Board;
 
@@ -18,7 +19,7 @@ public class BoardDao {
         }
     }
     
-    public ArrayList<Board> selectList() throws Exception{
+    public List<Board> selectList() throws Exception{
         
         try (
                 Connection con = DriverManager.getConnection(
@@ -27,7 +28,7 @@ public class BoardDao {
                         "select bno,titl,cdt from pms2_board");
                 ResultSet rs = stmt.executeQuery();) {
             
-            ArrayList<Board> list = new ArrayList<>();
+            List<Board> list = new ArrayList<>();
             
                 while (rs.next()) {
                     

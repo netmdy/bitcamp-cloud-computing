@@ -1,8 +1,8 @@
 package bitcamp.pms.servlet.board;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,24 +23,13 @@ public class BoardAddServlet extends HttpServlet {
         
         // 클라이언트가 보낸 데이터가 어떤 문자표를 사용해서 작성한지 알아야만 
         // String 객체(UTF-16)로 값을 꺼낼 수 있다. 
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
+//        request.setCharacterEncoding("UTF-8");
         
         // 지정된 시간이 경과하면 특정 서블릿을 요청하도록 태그를 삽입!
         // => 웹브라우저는 meta 태그의 내용대로 동작한다.
         //    content='경과시간(초);url=요청할URL'
 
-        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        out.println("<title>게시물 등록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>게시물 등록 결과</h1>");
+//        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
         try {
                 Board board = new Board();
                 
@@ -50,14 +39,14 @@ public class BoardAddServlet extends HttpServlet {
                 BoardDao boardDao = new BoardDao();
                       
                 boardDao.insert(board);
+                
+                response.sendRedirect("/board/list");
                         
-            out.println("<p>등록 성공!</p>");
         } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
-            e.printStackTrace(out);
+            request.setAttribute("error", e);
+            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
+            rd.forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
 
 }
