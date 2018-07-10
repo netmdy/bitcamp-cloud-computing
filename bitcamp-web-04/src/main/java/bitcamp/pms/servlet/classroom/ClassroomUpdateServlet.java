@@ -6,14 +6,14 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.util.Calendar;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.pms.domain.ClassRoom;
 
 @SuppressWarnings("serial")
 @WebServlet("/classroom/update")
@@ -39,6 +39,26 @@ public class ClassroomUpdateServlet extends HttpServlet {
         out.println("<h1>강의 변경 결과</h1>");
         
         try {
+                ClassRoom cr = new ClassRoom();
+                cr.setCrno(Integer.parseInt(request.getParameter("no")));
+                cr.setTitle(request.getParameter("title"));
+                cr.setStartDate(Date.valueOf(request.getParameter("startDate")));
+                cr.setEndDate(Date.valueOf(request.getParameter("endDate")));
+                cr.setRoom(request.getParameter("room"));
+                
+                update(cr);
+                
+                out.println("<p>변경 완료</p>");
+                
+        } catch (Exception e) {
+            out.println("<p>변경 실패!</p>");
+            e.printStackTrace(out);
+        }
+        out.println("</body>");
+        out.println("</html>");
+    }
+    public void update(ClassRoom cr) throws Exception{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             try (
                 Connection con = DriverManager.getConnection(
@@ -47,23 +67,17 @@ public class ClassroomUpdateServlet extends HttpServlet {
                 PreparedStatement stmt = con.prepareStatement(
                     "update pms2_classroom set titl=?, sdt=?, edt=?, room=? where crno=?");) {
                 
-                stmt.setString(1, request.getParameter("title"));
-                stmt.setDate(2, Date.valueOf(request.getParameter("startDate")), Calendar.getInstance(Locale.KOREAN));
-                stmt.setDate(3, Date.valueOf(request.getParameter("endDate")), Calendar.getInstance(Locale.KOREAN));
-                stmt.setString(4, request.getParameter("room"));
-                stmt.setInt(5, Integer.parseInt(request.getParameter("no")));
+                stmt.setString(1, cr.getTitle());
+                stmt.setDate(2, cr.getStartDate());
+                stmt.setDate(3, cr.getEndDate());
+                stmt.setString(4, cr.getRoom());
+                stmt.setInt(5, cr.getCrno());
                 
-                if (stmt.executeUpdate() == 0) {
-                    out.println("<p>해당 강의가 존재하지 않습니다.</p>");
-                } else {
-                    out.println("<p>변경하였습니다.</p>");
-                }
+                stmt.executeUpdate();
+                    
             }
         } catch (Exception e) {
-            out.println("<p>변경 실패!</p>");
-            e.printStackTrace(out);
+            e.printStackTrace();
         }
-        out.println("</body>");
-        out.println("</html>");
     }
 }
