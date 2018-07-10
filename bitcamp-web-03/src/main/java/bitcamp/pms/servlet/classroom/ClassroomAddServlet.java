@@ -3,18 +3,16 @@ package bitcamp.pms.servlet.classroom;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.util.Calendar;
-import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.pms.dao.ClassRoomDao;
+import bitcamp.pms.domain.ClassRoom;
 
 @SuppressWarnings("serial")
 @WebServlet("/classroom/add")
@@ -41,27 +39,20 @@ public class ClassroomAddServlet extends HttpServlet {
         out.println("<h1>강의 등록 결과</h1>");
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-                    try (
-                        Connection con = DriverManager.getConnection(
-                            "jdbc:mysql://13.209.8.213:3306/studydb",
-                            "study", "1111");
-                        PreparedStatement stmt = con.prepareStatement(
-                    "insert into pms2_classroom(titl,sdt,edt,room) values(?,?,?,?)");) {
-                
-                stmt.setString(1, request.getParameter("title"));
-                stmt.setDate(2, Date.valueOf(request.getParameter("startDate")), Calendar.getInstance(Locale.KOREAN));
-                stmt.setDate(3, Date.valueOf(request.getParameter("endDate")), Calendar.getInstance(Locale.KOREAN));
-                stmt.setString(4, request.getParameter("room"));
-            
-                stmt.executeUpdate();
-            }
-            out.println("<p>등록 성공!</p>");
-        } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
-            e.printStackTrace(out);
+             ClassRoomDao croom = (ClassRoomDao) getServletContext().getAttribute("classRoomDao");
+             ClassRoom cr = new ClassRoom();
+             cr.setTitle(request.getParameter("title"));
+             cr.setStartDate(Date.valueOf(request.getParameter("startDate")));
+             cr.setEndDate(Date.valueOf(request.getParameter("endDate")));
+             cr.setRoom(request.getParameter("room"));
+
+             croom.insert(cr);
+             out.println("<p>등록 성공!</p>");
+        }catch (Exception e) {
+            out.println("<p>등록 실패 ㅇㅅㅇ</p>");
         }
         out.println("</body>");
         out.println("</html>");
     }
+    
 }

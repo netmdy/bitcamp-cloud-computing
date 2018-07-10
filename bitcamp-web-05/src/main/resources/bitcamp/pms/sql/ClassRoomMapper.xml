@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="classroom">
+
+<!-- DB테이블의 컬럼명과 ClassRoom객체에 프로퍼티명이 서로 다르면 별명을 설정하여 맞춰준다
+    ex) select titl as title 나 select titl title 나 똑같이 titl를 title로 불러주세요라는 뜻 -->
+  <select id="selectList" resultType="bitcamp.pms.domain.ClassRoom">
+    select crno,titl title,sdt startDate,edt endDate,room from pms2_classroom
+  </select>
+
+  <select id="selectOne" resultType="bitcamp.pms.domain.ClassRoom" parameterType="int">
+    select crno,titl title,sdt startDate ,edt endDate,room from pms2_classroom where crno=#{crno}
+  </select>
+  
+  <update id="update" parameterType="bitcamp.pms.domain.ClassRoom">
+    update pms2_classroom set titl=#{title}, sdt=#{startDate}, edt=#{endDate}, room=#{room} where crno=#{crno}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from pms2_classroom where crno=#{crno}
+  </delete>
+  
+  <insert id="insert" parameterType="bitcamp.pms.domain.ClassRoom">
+    insert into pms2_classroom(titl,sdt,edt,room) values(#{title},#{startDate},#{endDate},#{room})
+  </insert>
+  
+</mapper>

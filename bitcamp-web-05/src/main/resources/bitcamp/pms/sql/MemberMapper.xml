@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+<!-- DB테이블의 컬럼명과 Member객체에 프로퍼티명이 서로 다르면 별명을 설정하여 맞춰준다
+    ex) select mid as id 나 select mid id 나 똑같이 mid를 id로 불러주세요라는 뜻 -->
+  <select id="selectList" resultType="bitcamp.pms.domain.Member">
+    select mid id, email from pms2_member
+  </select>
+
+  <select id="selectOne" resultType="bitcamp.pms.domain.Member" parameterType="java.lang.String">
+    select mid id,email from pms2_member where mid=#{id}
+  </select>
+  
+  <update id="update" parameterType="bitcamp.pms.domain.Member">
+    update pms2_member set email=#{email}, pwd=password(#{password}) where mid=#{id}
+  </update>
+  
+  <delete id="delete" parameterType="java.lang.String">
+    delete from pms2_member where mid=#{id}
+  </delete>
+  
+  <insert id="insert" parameterType="bitcamp.pms.domain.Member">
+    insert into pms2_member(mid,email,pwd) values(#{id},#{email},password(#{password}))
+  </insert>
+  
+</mapper>
