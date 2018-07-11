@@ -1,5 +1,6 @@
 package bitcamp.pms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,10 +16,10 @@ public class ClassRoomDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
 
-    public List<ClassRoom> selectList() throws Exception {
+    public List<ClassRoom> selectList(HashMap<String, Object> params) throws Exception {
 
         try (SqlSession ss = sqlSessionFactory.openSession()) {
-            return ss.selectList("classroom.selectList");
+            return ss.selectList("classroom.selectList", params);
         }
     }
 
@@ -52,4 +53,5 @@ public class ClassRoomDao {
             ss.commit();
         }
     }
+
 }
