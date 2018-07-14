@@ -2,16 +2,18 @@ package bitcamp.pms.servlet.team;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import bitcamp.pms.dao.TeamDao;
+import bitcamp.pms.dao.TeamMemberDao;
+import bitcamp.pms.domain.Member;
+import bitcamp.pms.domain.Team;
 
 @SuppressWarnings("serial")
 @WebServlet("/team/view")
@@ -38,18 +40,9 @@ public class TeamViewServlet extends HttpServlet {
         out.println("<h1>팀 보기</h1>");
         
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            try (
-                Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://13.209.8.213:3306/studydb",
-                        "study", "1111");
-                PreparedStatement stmt = con.prepareStatement(
-                    "select dscrt, sdt, edt, max_qty from pms2_team where name=?");) {
-                
-                stmt.setString(1, name);
-                
-                try (ResultSet rs = stmt.executeQuery();) {
-                    if (!rs.next()) {
+            TeamDao teamDao = (TeamDao) getServletContext().getAttribute("teamDao");
+                Team team = teamDao.selectOne(name);
+                    if (team == null) {
                         out.println("<p>유효하지 않은 팀입니다.</p>");
                     }
                     out.println("<form action='update' method='post'>");
@@ -57,23 +50,24 @@ public class TeamViewServlet extends HttpServlet {
                     out.println("<tr>");
                     out.printf("    <th>팀명</th><td><input type=\"text\" name=\"name\" value='%s' readonly></td>\n",
                             name);
+//                    team.getName());
                     out.println("</tr>");
                     out.println("<tr>");
                     out.println("    <th>설명</th><td><textarea name=\"description\" ");
                     out.printf("        rows=\"6\" cols=\"60\">%s</textarea></td>\n",
-                            rs.getString("dscrt"));
+                            team.getDscrt());
                     out.println("</tr>");
                     out.println("<tr>");
                     out.printf("    <th>최대인원</th><td><input type=\"number\" name=\"maxQty\" value='%d'></td>\n",
-                            rs.getInt("max_qty"));
+                            team.getMax_qty());
                     out.println("</tr>");
                     out.println("<tr>");
                     out.printf("    <th>시작일</th><td><input type=\"date\" name=\"startDate\" value='%s'></td>\n", 
-                            rs.getDate("sdt"));
+                            team.getStartDate());
                     out.println("</tr>");
                     out.println("<tr>");
                     out.printf("    <th>종료일</th><td><input type=\"date\" name=\"endDate\" value='%s'></td>\n", 
-                            rs.getDate("edt"));
+                            team.getEndDate());
                     out.println("</tr>");
                     out.println("</table>");
                     out.println("<p>");
@@ -84,10 +78,11 @@ public class TeamViewServlet extends HttpServlet {
                     out.println("</p>");
                     out.println("</form>");
                     
-                }
-            }
+                    
+           TeamMemberDao tmDao = (TeamMemberDao) getServletContext().getAttribute("teamMemberDao");
+               List<Member> members = tmDao.selectListWithEmail(name);
                         
-    /*        out.println("<h2>회원 목록</h2>");
+            out.println("<h2>회원 목록</h2>");
             out.println("<form action='member/add' method='post'>");
             out.println("<input type='text' name='memberId' placeholder='회원아이디'>");
             out.printf("<input type='hidden' name='teamName' value='%s'>\n", name);
@@ -106,7 +101,7 @@ public class TeamViewServlet extends HttpServlet {
                         name,
                         member.getId());
             }
-            out.println("</table>");*/
+            out.println("</table>");
                
         } catch (Exception e) {
             out.printf("<p>%s</p>\n", e.getMessage());
@@ -115,4 +110,5 @@ public class TeamViewServlet extends HttpServlet {
         out.println("</body>");
         out.println("</html>");
     }
+    
 }

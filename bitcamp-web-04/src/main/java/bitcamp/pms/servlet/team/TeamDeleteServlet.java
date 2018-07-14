@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bitcamp.pms.dao.TeamMemberDao;
+
 @SuppressWarnings("serial")
 @WebServlet("/team/delete")
 public class TeamDeleteServlet extends HttpServlet {
@@ -38,7 +40,8 @@ public class TeamDeleteServlet extends HttpServlet {
         out.println("<h1>팀 삭제 결과</h1>");
         
         try {
-//            teamMemberDao.delete(name);
+//            TeamMemberDao tmDao = (TeamMemberDao) getServletContext().getAttribute("teamMemberDao");
+//            int tmcount = tmDao.delete(name, name);
 //            taskDao.deleteByTeam(name);
           Class.forName("com.mysql.jdbc.Driver");
             try (
