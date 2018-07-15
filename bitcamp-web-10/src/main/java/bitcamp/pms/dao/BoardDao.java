@@ -4,16 +4,26 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import bitcamp.pms.domain.Board;
 
+@Repository
 public class BoardDao {
 
     SqlSessionFactory sqlsessionFactory;
     
+    @Autowired
+    public void setSqlsessionFactory(SqlSessionFactory sqlsessionFactory) {
+        this.sqlsessionFactory = sqlsessionFactory;
+    }
+
     public BoardDao(SqlSessionFactory sqlsessionFactory) {
         this.sqlsessionFactory = sqlsessionFactory;
     }
+    
+    public BoardDao() {}
     
     public List<Board> selectList() throws Exception{
         
