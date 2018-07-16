@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+<!-- xsi:schemaLocation="네임스페이스명 url -->
+        
+<context:component-scan base-package="bitcamp.pms">
+<!-- test 무시하기 -->
+    <context:exclude-filter type="regex" expression="bitcamp.pms.test.*"/>
+</context:component-scan>
+<!--  
+ 
+    Object builder = new SqlSessionFactoryBuilder();
+    iocContainer.put("sqlSessionFactoryBuilder", builder); 아래 명령과 같음 
+<bean id="sqlSessionFactoryBuilder"
+      class="org.apache.ibatis.session.SqlSessionFactoryBuilder"/>
+        
+Object factory = sqlSessionFactoryBuilder.build();
+    iocContainer.put("sqlSessionFactory", factory); 아래 명령과 같음 
+<bean id="sqlSessionFactory"
+      factory-bean="sqlSessionFactoryBuilder"
+      factory-method="build">
+
+반환값이 기본형이 아닌 객체면은 value대신 ref를 사용
+    <constructor-arg ref="inputStream"></constructor-arg>
+</bean>
+      
+ Object obj = Resources.getResourceAsStream("bitcamp...");
+    iocContainer.put("inputStream", obj); 아래 명령과 같음
+<bean id="inputStream"
+      class="org.apache.ibatis.io.Resources"
+      factory-method="getResourceAsStream">
+    <constructor-arg value="bitcamp/pms/config/mybatis-config.xml"></constructor-arg>      
+</bean>
+      
+      
+ 공장에서 SqlSessionFactory 만들기 
+    - 주위  class 속성에 지정된 클래스가 FactoryBean 구현체라면
+      그 객체를 만들어 저장하는 것이 아니라 
+      그 객체의 getObject()를 호출하면 그 리턴값을 저장함
+  -->    
+<bean id="sqlSessionFactory"
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+
+    <property name="dataSource" ref="dataSource" />
+    <property name="mapperLocations" value="classpath*:bitcamp/pms/sql/**/*.xml"></property>
+    <property name="typeAliasesPackage" value="bitcamp.pms.domain"></property>
+   
+</bean>
+
+<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${jdbc.driver}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+</bean>
+
+<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource"/>
+</bean>
+
+<!-- dao 인터페이스로 부터 구현체를 자동 생성하는 객체 등록 
+    dao 구현체가 사용한 sql mapper 파일은 namespace 값으로 찾음
+    따라서 인터페이스 명과 sql mapper의 namespace 값은 같아야 함
+    또한 인터페이스의 메서드명과 sql id는 같아야 함-->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+  <property name="basePackage" value="bitcamp.pms.dao" />
+</bean>
+
+<!-- .properties 파일을 읽어서 그 데이터를 보관할 객체를 등록 -->
+<context:property-placeholder location="bitcamp/pms/config/jdbc.properties"/>
+
+
+      
+</beans>
