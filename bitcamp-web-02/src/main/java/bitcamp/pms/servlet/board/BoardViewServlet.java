@@ -40,7 +40,7 @@ public class BoardViewServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             try (
                 Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.209.8.213:3306/studydb",
+                    "jdbc:mysql://aws.yddragon.com:3306/studydb",
                     "study", "1111");
                 PreparedStatement stmt = con.prepareStatement(
                     "select bno,titl,cont,cdt from pms2_board where bno=?");) {

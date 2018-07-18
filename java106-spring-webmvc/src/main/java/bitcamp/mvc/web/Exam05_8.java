@@ -54,6 +54,23 @@ public class Exam05_8 {
         }
     }
     
+    @GetMapping(value="m3", produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public String m3(
+            // URL 인코딩된 쿠키 값을 받을 때는 Cookie 객체로 받아야 문자가 깨지지 않는다.
+            @CookieValue(value="name", defaultValue="") String name, 
+            
+            // URL 인코딩된 값이 아닌 경우에는 다음과 같이 특정 타입으로 바로 받아도 된다.
+            @CookieValue(value="age", defaultValue="0") int age) {
+        try {    
+            System.out.println(name);
+            return String.format("m2(): name=%s, age=%d", 
+                    URLDecoder.decode(name, "UTF-8"), age);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
 }
 
 

@@ -2,7 +2,7 @@ package bitcamp.pms.test;
 
 import org.springframework.context.annotation.Bean;
 
-import bitcamp.pms.dao.MemberDao;
+import bitcamp.pms.test.MemberDao;
 
 public class MySpringConfig {
     

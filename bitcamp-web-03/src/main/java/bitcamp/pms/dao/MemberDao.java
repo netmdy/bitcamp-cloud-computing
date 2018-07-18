@@ -10,7 +10,6 @@ import bitcamp.pms.domain.Member;
 
 public class MemberDao {
     String jdbcUrl; 
-//            "jdbc:mysql://13.209.8.213:3306/studydb"
     String username;
     String password;
     

@@ -38,7 +38,7 @@ public class BoardUpdateServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             try (
                 Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://13.209.8.213:3306/studydb",
+                    "jdbc:mysql://aws.yddragon.com:3306/studydb",
                     "study", "1111");
                 PreparedStatement stmt = con.prepareStatement(
                     "update pms2_board set titl=?, cont=?, cdt=now() where bno=?");) {

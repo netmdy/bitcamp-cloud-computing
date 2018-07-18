@@ -79,6 +79,7 @@ public class Exam05_9 {
             @RequestBody String content) {
         
         // google-gson 라이브러리 사용해서 JSON 문자열을 자바 객체로 변환시킨다.
+        // 2018-01-01 날짜형을 gson으로 변환하기위해서 형식을 맞춰주기
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         Board board = gson.fromJson(content, Board.class);
         

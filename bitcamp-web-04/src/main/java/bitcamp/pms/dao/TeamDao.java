@@ -90,8 +90,5 @@ public class TeamDao {
         }
     }
     
-    public int delete(String name) throws Exception{
-        
-    }
 
 }

@@ -19,13 +19,13 @@ public class ContextLoaderListener implements ServletContextListener{
         System.out.println("ServletContextListener 실행 ㅇㅅㅇ");
         
         MemberDao memberDao = new MemberDao(
-                "jdbc:mysql://13.209.8.213:3306/studydb","study","1111");
+                "jdbc:mysql://aws.yddragon.com:3306/studydb","study","1111");
         ClassRoomDao classRoomDao = new ClassRoomDao(
-                "jdbc:mysql://13.209.8.213:3306/studydb","study","1111");
+                "jdbc:mysql://aws.yddragon.com:3306/studydb","study","1111");
         TeamDao teamDao = new TeamDao(
-                "jdbc:mysql://13.209.8.213:3306/studydb","study","1111");
+                "jdbc:mysql://aws.yddragon.com:3306/studydb","study","1111");
         TeamMemberDao teamMemberDao = new TeamMemberDao(
-                "jdbc:mysql://13.209.8.213:3306/studydb","study","1111");
+                "jdbc:mysql://aws.yddragon.com:3306/studydb","study","1111");
                 
         
         ServletContext sc = sce.getServletContext();
