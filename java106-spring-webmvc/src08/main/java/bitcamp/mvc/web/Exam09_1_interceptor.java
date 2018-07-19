@@ -22,19 +22,20 @@ import org.springframework.web.servlet.ModelAndView;
 //    - 콘텐트의 압축 또는 해제 
 // 
 public class Exam09_1_interceptor implements HandlerInterceptor {
+// 메소드 실행전
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         System.out.println("Exam09_1_interceptor.preHandler()");
         return true; // 다음 인터셉터 또는 페이지 컨트롤러를 실행하려면 true
     }
-    
+// 메소드 실행후    
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
         System.out.println("Exam09_1_interceptor.postHandle()");
     }
-    
+// jsp 실행후    
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {

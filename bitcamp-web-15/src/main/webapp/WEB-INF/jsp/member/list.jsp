@@ -13,14 +13,14 @@
 </head>
 <body>
 <h1>멤버 목록 :D</h1>
-<p><a href='add'>새회원</a></p>
+<p><a href='form'>새회원</a></p>
 <table border='1'>
 <tr>
     <th>아이디</th><th>이메일</th>
 </tr>
 <c:forEach items="${list}" var="member">
 <tr>
-    <td><a href='view?id=${member.id}'>${member.id}</a>
+    <td><a href='view/${member.id}'>${member.id}</a>
     </td><td>${member.email}</td>
 </tr>
 </c:forEach>

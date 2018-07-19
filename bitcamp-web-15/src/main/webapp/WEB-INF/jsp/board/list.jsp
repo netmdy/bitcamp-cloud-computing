@@ -10,14 +10,14 @@
 </head>
 <body>
 <h1>게시물 목록</h1>
-<p><a href='add'>새 글</a></p>
+<p><a href='form'>새 글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>제목</th><th>등록일</th>
 </tr>
 <c:forEach items="${list}" var="board">
 <tr>
-<td>${board.bno}</td><td><a href='view?no=${board.bno}'>${board.titl}</a></td>
+<td>${board.bno}</td><td><a href='view/${board.bno}'>${board.titl}</a></td>
 <td>${board.getCdt() }</td>
 </tr>
 </c:forEach>

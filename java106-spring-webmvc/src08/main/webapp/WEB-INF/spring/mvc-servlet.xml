@@ -34,11 +34,14 @@
 	   <!-- <bean class="bitcamp.mvc.web.Exam09_1_interceptor"/> -->
 	   
 	   <!-- 특정 URL에 대해서만 인터셉터 적용하기 -->
+	   
 	   <mvc:interceptor>
 	       <mvc:mapping path="/exam09_1/**"/>
+	       <!-- /exam09_1/bbb/**" 제외하기 -->
 	       <mvc:exclude-mapping path="/exam09_1/bbb/**"/>
 	       <bean class="bitcamp.mvc.web.Exam09_1_interceptor"/>
 	   </mvc:interceptor>
+	   
 	</mvc:interceptors>
 </beans>
 
