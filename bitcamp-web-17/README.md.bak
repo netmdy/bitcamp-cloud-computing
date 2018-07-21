@@ -1,20 +1,20 @@
-# bitcamp-cloud-computing
-비트캠프 클라우드 컴퓨팅 과정
+## web-15 : 요청 핸들러의 파라미터와 리턴 값 다루기
+- 요청 핸들러의 파라미터 다루기
+- 요청 핸들러의 리턴 다루기
 
-## bitcamp-web - 02 : 서블릿
-- pms2_member 테이블에 대한 CRUD 서블릿 만들기
+## 요청 핸들러의 매트릭스 변수 활성화시키기
+- application-context.xml에서 다음과 같이 설정을 변경한다.
 
-## 패키지 생성
-bitcamp.pms.servlet 패키지 생성
+'''
+<mvc:annotation-driven enable-matrix-variables="true"/>
+'''
 
-## 회원 관리 서블릿 만들기
+## 각 페이지 컨트롤러에 대해 요청 핸들러의  파라미터를 정리한다.
 
-- servlet-apt 의존 라이브러리 추가하기
-    sevlet-api 라이브러리 검색
-    build.gradle에 라이브러리 등록
-    gradle eclipse 실행하여 classpath 갱신
-    이클립스 리플레쉬
-- mysql jdbc driver 의존 라이브러리 추가하기  
-bitcamp.pms.servlet.member 패키지 생성
-- MemberListServlet, MemberViewServlet, MemberAddServlet, 
-MemberUpdateServlet, MemberDeleteServlet 클래스 생성
+## 각 페이지 컨트롤러에 대해 요청 핸들러의  리턴 값을 정리한다.
+
+## 각 페이지 컨트롤러에 대해 요청 핸들러의  애노테이션 정리한다.
+
+## CRUD 메서드는 한 개의 컨트롤러에 묶어 관리한다.
+
+MemberXxxxController 들을 MemberController로 합친다.
