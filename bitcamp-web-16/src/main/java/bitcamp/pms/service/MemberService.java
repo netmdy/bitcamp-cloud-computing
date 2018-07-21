@@ -46,6 +46,7 @@ public class MemberService {
         int totalPage = count /size;
         if (count % size > 0)
             totalPage++;
+
         return totalPage;
     }
     

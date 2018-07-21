@@ -3,6 +3,7 @@ package bitcamp.pms.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bitcamp.pms.dao.TaskDao;
@@ -11,12 +12,12 @@ import bitcamp.pms.domain.Task;
 @Service
 public class TaskService {
 
-TaskDao taskDao;
+    @Autowired TaskDao taskDao;
     
-    public List<Task> list(String teamName, int pageNo, int pageSize) {
+    public List<Task> list(String teamName, int page, int size) {
         HashMap<String,Object> params = new HashMap<>();
-        params.put("startRowNo", (pageNo - 1) * pageSize);
-        params.put("pageSize", pageSize);
+        params.put("startRowNo", (page - 1) * size);
+        params.put("pageSize", size);
         params.put("teamName", teamName);
         
         return taskDao.selectList(params);
@@ -36,5 +37,16 @@ TaskDao taskDao;
     
     public int delete(int no) {
         return taskDao.delete(no);
+    }
+
+    public int getTotalPage(int size) {
+        int count = taskDao.countAll();
+        int totalPage = count /size;
+        if (count % size > 0)
+            totalPage++;
+        
+        System.out.println("count" + count);
+        System.out.println(totalPage);
+        return totalPage;
     }
 }

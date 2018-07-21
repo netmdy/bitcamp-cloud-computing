@@ -25,5 +25,16 @@
 </tr>
 </c:forEach>
 </table>
+
+<c:if test="${page <= 1}">
+[이전]
+</c:if>
+<c:if test="${startRowNo > 1}">
+    <a href="?page=${page -1}&size=${size}">[이전]</a>
+</c:if><c:out value="${page}"></c:out>
+<c:if test="${totalPage > page}">
+    <a href="?page=${page +1}&size=${size}">[다음]</a>
+</c:if>
+    ${totalPage} 
 </body>
 </html>

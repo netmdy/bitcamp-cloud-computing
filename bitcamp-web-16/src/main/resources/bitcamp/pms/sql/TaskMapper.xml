@@ -102,4 +102,9 @@
       stat=#{state} 
     where tano=#{no}
   </update>
+  
+    <select id="countAll" resultType="int">
+    select count(*) from pms2_task
+    where tnm=#{teamName} 
+  </select>
 </mapper>
