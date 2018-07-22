@@ -70,4 +70,8 @@
       stat=#{state} 
     where tano=#{no}
   </update>
+  
+  <select id="getTotalPage" resultType="int">
+    select count(*) from pms2_team
+  </select>
 </mapper>

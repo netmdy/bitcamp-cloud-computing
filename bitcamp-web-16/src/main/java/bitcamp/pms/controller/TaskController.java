@@ -79,7 +79,7 @@ public class TaskController {
         model.addAttribute("list", taskService.list(teamName, page, size));
         model.addAttribute("page", page);
         model.addAttribute("size", size);
-        model.addAttribute("totalPage", taskService.getTotalPage(size));
+        model.addAttribute("totalPage", taskService.getTotalPage(size, teamName));
 
         return "task/list";
     }

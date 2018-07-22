@@ -79,5 +79,17 @@ public class TeamService {
     public List<Member> getMembersWithEmail(String teamName) {
         return teamMemberDao.selectListWithEmail(teamName);
     }
+
+    public int getTotal(int pageSize) {
+        int count = teamDao.getTotalPage();
+        int totalPage = count / pageSize;
+        if (count % pageSize > 0) {
+            totalPage++;
+        }
+        
+        return totalPage;
+    }
+    
+    
 }
 

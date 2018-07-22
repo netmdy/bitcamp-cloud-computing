@@ -12,4 +12,5 @@ public interface TeamDao {
     int update(Team team);
     Team selectOne(String name);
     Team selectOneWithMembers(String name);
+    int getTotalPage();
 }

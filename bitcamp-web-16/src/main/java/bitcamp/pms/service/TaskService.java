@@ -16,7 +16,8 @@ public class TaskService {
     
     public List<Task> list(String teamName, int page, int size) {
         HashMap<String,Object> params = new HashMap<>();
-        params.put("startRowNo", (page - 1) * size);
+        
+        params.put("startIndex", (page - 1) * size);
         params.put("pageSize", size);
         params.put("teamName", teamName);
         
@@ -39,8 +40,8 @@ public class TaskService {
         return taskDao.delete(no);
     }
 
-    public int getTotalPage(int size) {
-        int count = taskDao.countAll();
+    public int getTotalPage(int size, String teamName) {
+        int count = taskDao.countAll(teamName);
         int totalPage = count /size;
         if (count % size > 0)
             totalPage++;

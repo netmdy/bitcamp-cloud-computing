@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,12 +36,19 @@ public class TeamController {
         return "redirect:list";
     }
     
-    @RequestMapping("list{page}")
-    public void list(@MatrixVariable(defaultValue="1") int pageNo,
-            @MatrixVariable(defaultValue="3") int pageSize,
+    @RequestMapping("list")
+    public void list(@RequestParam(defaultValue="1") int pageNo,
+            @RequestParam(defaultValue="3") int pageSize,
             Map<String,Object> map) throws Exception { 
         
+        if (pageNo < 1) pageNo = 1;
+        if (pageSize < 1 || pageSize > 20) pageSize = 3;
+
         map.put("list", teamService.list(pageNo, pageSize));
+        map.put("totalPage", teamService.getTotal(pageSize));
+        map.put("pageNo", pageNo);
+        map.put("pageSize", pageSize);
+        
     }
     
     @RequestMapping("update")

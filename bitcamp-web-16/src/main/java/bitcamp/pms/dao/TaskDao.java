@@ -13,5 +13,5 @@ public interface TaskDao {
         int update(Task task);
         Task selectOne(int no);
         int updateState(Map<String,Object> params);
-        int countAll();
+        int countAll(String teamName);
 }

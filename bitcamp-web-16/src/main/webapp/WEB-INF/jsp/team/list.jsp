@@ -23,6 +23,17 @@
 </tr>
 </c:forEach>
 </table>
+
+<c:if test="${pageNo <= 1 }">
+[이전]
+</c:if>
+<c:if test="${pageNo > 1 }">
+<a href="?pageNo=${pageNo -1}">[이전]</a>
+</c:if>
+ ${pageNo}
+<c:if test="${totalPage > pageNo}">
+    <a href="?pageNo=${pageNo + 1}">[다음]</a>
+</c:if>
 </body>
 </html>
 

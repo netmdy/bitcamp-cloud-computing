@@ -46,7 +46,7 @@
     from pms2_task
     where tnm=#{teamName} 
     order by sdt asc
-    limit #{startRowNo}, #{pageSize}
+    limit #{startIndex}, #{pageSize}
   </select>
   
   <insert id="insert" parameterType="Task"
@@ -103,7 +103,7 @@
     where tano=#{no}
   </update>
   
-    <select id="countAll" resultType="int">
+    <select id="countAll" resultType="int" parameterType="string">
     select count(*) from pms2_task
     where tnm=#{teamName} 
   </select>
