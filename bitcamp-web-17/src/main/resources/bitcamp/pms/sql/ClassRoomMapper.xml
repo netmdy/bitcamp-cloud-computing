@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="classroom">
+<mapper namespace="bitcamp.pms.dao.ClassRoomDao">
 
 <resultMap type="classRoom" id="classRoomMap">
     <id column="crno" property="crno"/>
@@ -36,5 +36,9 @@
   <insert id="insert" parameterType="ClassRoom">
     insert into pms2_classroom(titl,sdt,edt,room) values(#{title},#{startDate},#{endDate},#{room})
   </insert>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from pms2_classroom
+  </select>
   
 </mapper>

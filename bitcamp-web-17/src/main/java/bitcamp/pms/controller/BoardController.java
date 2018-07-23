@@ -1,4 +1,4 @@
-package bitcamp.pms.controller.board;
+package bitcamp.pms.controller;
 
 import java.util.List;
 
@@ -9,24 +9,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import bitcamp.pms.dao.BoardDao;
 import bitcamp.pms.domain.Board;
+import bitcamp.pms.service.BoardService;
 
 @Controller
 @RequestMapping("/board/")
 public class BoardController {
 //    사용할 dao 선언해주기
+
     @Autowired
-    BoardDao boardDao;
+    BoardService boardService;
 
     @RequestMapping("list")
-    public String list(Model model) throws Exception {
-// boardDao에 있는 selectList실행하고 List<Board>형식으로 list에 저장하기
-        List<Board> list = boardDao.selectList();
-// request 속성에 list란 이름이로 list 담기             
+    public String list(@RequestParam(defaultValue="1") int page, 
+            @RequestParam(defaultValue="3") int size, Model model) throws Exception {
+
+        if (page < 1) page = 1;
+        if (size < 1 || size > 20) size = 3;
+        
+        List<Board> list = boardService.list(page,size); 
+                
         model.addAttribute("list", list);
-// board/list.jsp 문자열을 Dispatcherservlet으로 보내기 
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPage", boardService.getTotalPage(size));
         return "board/list";
     }
 
@@ -38,22 +46,21 @@ public class BoardController {
     @PostMapping("add")
     public String add(Board board) throws Exception {
 
-        boardDao.insert(board);
+        boardService.add(board);
         return "redirect:list";
     }
 
     @RequestMapping("delete")
     public String delete(int no) throws Exception {
 
-        boardDao.delete(no);
+        boardService.delete(no);
         return "board/delete";
     }
     
     @RequestMapping("update")
     public String update(Board board) throws Exception {
         
-                int up = boardDao.update(board);
-                if (up == 0) {
+                if (boardService.update(board) == 0) {
                     throw new Exception("업데이트가 적용 되지 않았어요");
                 }
                 return "board/update";
@@ -63,7 +70,7 @@ public class BoardController {
     @RequestMapping("view/{no}")
     public String view(@PathVariable int no, Model model) throws Exception {
                 
-                Board board = boardDao.selectOne(no);
+                Board board = boardService.get(no);
                 
                 model.addAttribute("board", board);
                 return "board/view";
