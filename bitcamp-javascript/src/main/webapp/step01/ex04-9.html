@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+</head>
+<body>
+
+	<h1>변수 선언 - 변수 호이스팅(hoisting)</h1>
+<script type="text/javascript">
+	"use strict"
+	
+	// strict 모드에서는 변수를 선언하지 않고 사용불가
+	a = 100 ; // 오류
+</script>
+<script type="text/javascript">
+	"use strict"
+	
+	b = 100 ;
+// 사용 후 변수를 선언하면 오류가 발생하지 않음
+    var b = 200;
+    console.log(b);
+
+/*
+자바스크립스는 script 태그를 실행하기 전에 먼저
+script 태그 안에 선언된 모든 변수 선언을 맨 앞으로
+끌어올려 먼저 실행한다
+ b = 100; 을 실행하기 전에 var b; 를 먼저 실행함
+ 이걸 변수 호이스팅이라 함
+*/
+/*
+--- 주의 ---
+변수 선언과 값 할당하는 문장이 함께 있을 경우에,
+변수 선언만 끝어 오려지고 할당문은 그자리에 그대로 
+놓여서 var b = 200; 에서 var b만 끌어올려져서 
+출력을 하면 200이 된다.
+*/
+
+</script>
+
+</body>
+</html>

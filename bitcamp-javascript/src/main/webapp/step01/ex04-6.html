@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+</head>
+<body>
+
+	<h1>변수 선언 - 로컬변수</h1>
+	<script type="text/javascript">
+	"use strict"
+	
+// 자바스크립트의 로컬 변수는 오직 함수 안에 선언된 변수임
+	var a =100;
+	
+	function f(){
+		var b; // 함수 안에서 선언한 변수는 로컬 변수임
+		b =200;
+		{ // 자바스크립트는 블록을 이용한 변수의 범위 제한을 지원하지 않음
+			var c = 300;
+		}
+		
+// 당연히 함수에서는 windows 객체에 소속된 변수 사용 가능
+	console.log("f() b:",b);
+	console.log("f() c:",c);
+	}
+f();
+
+// 자바스크립트는 오직 함수 밖에 선언된 글로벌 변수와
+// 함수 안에 선언된 로컬 변수로만 구분한다. 
+	</script>
+
+</body>
+</html>

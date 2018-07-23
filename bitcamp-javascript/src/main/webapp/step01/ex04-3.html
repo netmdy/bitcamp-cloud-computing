@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+</head>
+<body>
+
+	<h1>변수 선언 - 객체의 변수에 값 넣기</h1>
+	<script type="text/javascript">
+	"use strict"
+	
+	// window 객체를 직접사용하면
+	//  변수 선언없이 변수에 값을 넣을 수 있다.
+	window.a = 100;
+	window["b"] = 200;
+	window['c'] = 300;
+
+	console.log(a);
+	console.log(b);
+	console.log(c);
+	
+//	window.first-name = "길동"; //오류
+//	window.first name = "길동"; //오류
+//	window.first^^name = "길동"; //오류
+//	window.1stName = "길동"; // 일반 변수명으로 숫자를 먼저 사용불가
+	
+	//그런데 대괄호를 사용하면 모두 다 사용 가능
+	
+	window["first-name"] = "길동"; // ok
+	window["first name"] = "길동"; // ok
+	window["first^^name"] = "길동"; // ok
+	window["1stName"] = "길동"; // ok
+	
+	console.log(window["first-name"]);
+	console.log(window["first name"]);
+	console.log(window["first^^name"]);
+	console.log(window["1stName"]);
+	</script>
+
+</body>
+</html>

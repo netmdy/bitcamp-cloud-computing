@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+</head>
+<body>
+
+	<h1>변수 선언 - 로컬변수</h1>
+	<script type="text/javascript">
+	"use strict"
+	
+// 자바스크립트의 로컬 변수는 오직 함수 안에 선언된 변수임
+	var a =100;
+	
+	function f(){
+		var b; // 함수 안에서 선언한 변수는 로컬 변수임
+		b =200;
+		
+// 당연히 함수에서는 windows 객체에 소속된 변수 사용 가능
+	console.log("f() :",a);
+	console.log("f() :",b);
+	}
+f();
+	console.log(a);
+	console.log(b); // 함수 밖에서는 사용 할 수 없다
+	</script>
+
+</body>
+</html>

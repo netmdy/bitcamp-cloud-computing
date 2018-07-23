@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+</head>
+<body>
+<h1>클로저(closure) - 바깥 함수의 로컬 변수 복제 II</h1>
+
+<script type="text/javascript">
+"use strict"
+
+function outer(p1){ // 파라미터도 로컬 변수이다.
+    
+    //객체에 담아 함수를 여러개 리턴하기
+    var obj = new Object();
+    obj.f1 = function () {p1 += 1};
+    obj.f2 = function () {p1 += 10};
+    obj.f3 = function () {p1 += 100};
+    obj.f4 = function () {console.log(p1)};
+    
+    return obj;
+    
+}
+
+// outer()는 함수가 3개 들어 있는 객체를 리턴함
+var x = outer(100); 
+var y = outer(200); 
+
+x.f2(); // 100 +10 
+x.f2(); // 110 +10
+
+y.f1(); // 200 + 1
+y.f3(); // 201 + 100
+
+x.f4(); // 120
+y.f4(); // 301
+</script>
+</body>
+</html>
