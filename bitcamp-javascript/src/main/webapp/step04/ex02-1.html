@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+</head>
+<body>
+<h1>객체 프로퍼티 - 프로퍼티 추가하기</h1>
+
+<script type="text/javascript">
+"use strict"
+// 중괄호를 사용하여 객체를 생성할 수 있다.
+
+var obj1 = new Object();
+
+// 프로퍼티 추가 문법1)
+// 객체명.프로퍼티명 = 값
+
+obj1.name = "홍길동"
+
+// 프로퍼티 추가 문법2)
+// 객체명["프로퍼티명"] = 값
+// 객체명['프로퍼티명'] = 값
+
+obj1["kor"] = 100;
+obj1["eng"] = 90;
+
+console.log(obj1);
+
+// new 명령만 단독으로 사용할수 없다
+// new 명령다음에는 반드시 객체를 초기화 시키는 함수가 와야한다.
+// var a = new; // 오류
+
+</script>
+
+</body>
+</html>

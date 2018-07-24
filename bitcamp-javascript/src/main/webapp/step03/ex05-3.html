@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+</head>
+<body>
+<h1>함수 파라미터 - rest parameter</h1>
+
+<script type="text/javascript">
+"use strict"
+
+// rest 파라미터는 나머지 아규먼트 값을 가지고 있는 배열 이다.
+// rest 파라미터는 오직 한 개만 올수 있으며 맨 뒤에서만 가능
+function f1(a, b, ...x){
+    console.log(a, b);
+    console.log("-----");
+// x 배열에는 a, b를 제외한 나넘지 아규먼트가 들어있다
+    for (var value of x)
+        console.log(value);
+        console.log(" ----- ");
+// arguments 는 모든 아큐먼트가 들어 있다.
+    console.log("length = ", arguments.length);
+    for (var value of arguments){
+        console.log(value);
+    }
+    console.log("==========");
+}
+
+f1();
+f1(100);
+f1(100,200);
+f1(100,200,300);
+f1(100,200,300,400);
+f1(100,200,300,400,500);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트</title>
+</head>
+
+<body>
+
+	<h1>기타 변수 - let 변수와 블록</h1>
+	<script type="text/javascript">
+        "use strict"
+
+        var a = 100;
+        {
+            var a = 200;
+            console.log(a);
+        }
+        console.log(a);
+        
+        let b = 1000;
+        {
+// 이 블록에서만 사용될 수 있는 새 변수를 선언
+            let b = 2000; 
+            console.log(b);
+        }
+        console.log(b);
+// let 문법은 자바처럼 블록에 제한되는 로컬 변수를 만들 수 있다.
+// 기존의 var을 그렇게 만들면 안되는 이유는 이전 소스코드를 
+// 전부 바꿀수 없기 때문에 let을 새로 만듦
+    </script>
+
+</body>
+
+</html>
