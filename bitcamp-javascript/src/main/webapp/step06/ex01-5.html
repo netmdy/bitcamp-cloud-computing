@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+</head>
+<body>
+<h1>DOM API - 태그 이름으로 태그 찾기</h1>
+
+<div id="d1">
+    <h2 id="header1" class="g1 g3">d1.제목 1</h2>
+    <h2 id="header2" class="g1">d1.제목 2</h2>
+    <h2 id="header3" class="g1 g2 g3">d1.제목 3</h2>
+    <h2 id="header4" class="g2">d1.제목 4</h2>
+</div>
+
+<div id="d2">
+    <h2 id="header1" class="g1 g3">d2.제목 1</h2>
+    <h2 id="header2" class="g1">d2.제목 2</h2>
+    <h2 id="header3" class="g1 g2 g3">d2.제목 3</h2>
+    <h2 id="header4" class="g2">d2.제목 4</h2>
+</div>
+
+    <h2 id="header1" class="g1 g3">제목 1</h2>
+    <h2 id="header2" class="g1">제목 2</h2>
+    <h2 id="header3" class="g1 g2 g3">제목 3</h2>
+    <h2 id="header4" class="g2">제목 4</h2>
+
+
+<script type="text/javascript">
+"use strict"
+
+// querySelectorAll(selector)
+// 리턴값은 NodeList 객체이다
+// 여러개의 태그를 찾을 때 사용
+
+var el = document.querySelectorAll("div > .g1.g3");
+console.log(el);
+console.log("-----------------------");
+
+// NodeList는 배열은 아니지만 Collection 타입이라
+// for ... of 사용할 수 있다.
+for (var e of el){
+    console.log(e);
+}
+
+// NodeList는 배열은 아니라
+// for ... in은 사용할 수 없다.
+for (var i in el){
+    console.log(el[i]);
+}
+
+</script>
+
+</body>
+</html>

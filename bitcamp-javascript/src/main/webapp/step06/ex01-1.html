@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+</head>
+<body>
+<h1>DOM API - 태그 찾기</h1>
+
+<h1 id="header1">제목 1</h1>
+<h1 id="header2">제목 2</h1>
+<h1 id="header3">제목 3</h1>
+<h1 id="header4">제목 4</h1>
+
+<script type="text/javascript">
+"use strict"
+
+// 1) 아이디로 태그 찾기
+// 리턴값은 태그 객체이며 만약 같은 아이디가 여러 개 있을경우
+// 첫 번째 찾은 태그만 리턴된다.
+var e = document.getElementById("header3");
+console.log(e);
+
+// 웹브라우저는 아이디가 지정도니 태그에 대해서는
+// 그 아이디로 window 객체에 보관한다.
+// 그래서 아래와 같이 아이디로 바로 태그 객체를 지정할 수 있다.
+console.log(header3);
+
+console.log(window.header3);
+
+
+
+</script>
+
+</body>
+</html>

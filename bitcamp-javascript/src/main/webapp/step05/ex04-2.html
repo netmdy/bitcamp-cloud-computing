@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+</head>
+<body>
+<h1>navigator 객체 - Geo 위치정보</h1>
+
+<script type="text/javascript">
+"use strict"
+
+// 웹브라우저를 다루는 객체
+console.log(navigator.geolocation);
+navigator.geolocation.getCurrentPosition((pos) => {
+    console.log("시킨거 했음");
+    console.log(pos.coords.latitude,pos.coords.longitude);
+});
+
+console.log("일 시킴")
+
+/*
+ 시간이 오래 걸리는 작업을 수행하는 메서드인 경우
+ 비동기 방식으로 값을 리턴하는 것이 좋다.
+ 동기식은 메서드 호출이 끝날 때까지 않기 때문에
+ 시간이 오래 걸리는 경우 다음 코드를 실행하지 못해
+ 시스템이 멈춰있는 현상이 발생한다.
+ 
+ 요즘들어 비동기 방식의 프로그래밍이 유행하는 이유는
+ 시간이 오래 걸리는 작업이 많아져서 
+ 예전과 달리 한 컴퓨터에서 작업하는 것이 아니라
+ 여러 컴퓨터 and 장비와  연계하여 작업을 처리하여
+ 장비와 장비 사이에 작업을 처리하는 데 지연 현상이
+ 많아져서 비동기 방식의 코딩이 많아지고
+ 프로그래밍 언어 측면에서도 비동기 방식의 프로그래밍을
+ 지원하기 쉽도록 문법이 강화되고 있는 상황이라
+ 파라미터로 함수를 전달하고 리턴 값으로 함수를 리턴
+ 하는 함수형 프로그래밍이 유행하게 된것이다.
+ 자바스크립트는 "클로저"라는 용어로 함수형 프로그래밍을
+ 표현하고 있고, 자바에도 함수를 파라미터로 전달하기 쉽게
+ "람다"라는 문법을 추가하였다
+ 
+ */
+</script>
+
+</body>
+</html>
