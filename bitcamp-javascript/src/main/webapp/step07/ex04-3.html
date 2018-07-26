@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+<style type="text/css">
+    button {
+    height: 30px;
+    margin: 20px;
+    }
+    div[id^='d1']{
+        margin: 20px;
+        border: 1px solid black;
+    }
+    div[id^='d11']{
+        margin: 20px;
+        border: 1px solid red;
+    }
+    div[id^='d12']{
+        margin: 20px;
+        border: 1px solid blue;
+    }
+</style>
+</head>
+<body>
+<h1>이벤트 전달 단계</h1>
+<h2>target 단계에서만 호출하기</h2>
+
+<div id="d1">d1
+    <div id="d11">d11
+        <button id="btn1">버튼1</button>
+        <button id="btn2">버튼2</button>
+    </div>
+    <div id="d12">d12
+        <button id="btn3">버튼3</button>
+        <button id="btn4">버튼4</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+"use strict"
+
+/*  capture 단계에서 리스너가 호출되도록 하려면
+  onxxx  = function () {} 방식으로는 처리할수 없다.
+  addEventListener()를 호출할 때에만 가능
+  
+  e.addEventListener("이벤트명", function() {}, capture여부)
+  */
+
+d1.onclick = function(){console.log("d1")};
+d11.onclick = function(){console.log("d11")};
+d12.onclick = function(){console.log("d12")};
+
+btn1.onclick = function(event) {
+    // target 단계에서 리스너가 호출되면
+    // 조상 태그로 버블링 하지 않도록 설정하기
+    // 처음이나 마지막 어디에 위치하더라도 상관없음
+    // 이벤트 객체에 버블링 단계에서 호출되지 않도록 설정함
+    //버블링을 멈추는 명령
+    event.stopPropagation();
+    console.log("btn1")
+}
+
+btn2.onclick = function(){console.log("btn2")};
+btn3.onclick = function(){console.log("btn3")};
+btn4.onclick = function(){console.log("btn4")};
+
+</script>
+
+</body>
+</html>

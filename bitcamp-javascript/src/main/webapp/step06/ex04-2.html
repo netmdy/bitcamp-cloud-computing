@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+<style type="text/css">
+img {
+    height: 80px;
+}
+</style>
+</head>
+<body>
+<h1>DOM API - 자식 태그 제거하기</h1>
+
+<div id="d1">
+	<img src="https://pbs.twimg.com/media/DUd-PTjVwAAcWc6.png">
+	<img src="http://img.newspim.com/content/image/2014/05/29/20140529000002_0.jpg">
+	<img src="http://www.gametoc.co.kr/news/photo/201803/47357_89822_2718.jpg">
+	<img src="http://img.insight.co.kr/static/2017/12/11/700/gd8c6c77kpzg9e7viy83.jpg">
+    <img src="http://bitly.kr/AcCl">
+</div>
+
+<script type="text/javascript">
+"use strict"
+
+var tid = setInterval(()=> {
+var e =document.querySelector("#d1 >  img:first-child");
+	if (e == null){
+	    clearInterval(tid);
+	    return;    
+	    }
+	d1.removeChild(e);
+}, 2000)
+
+</script>
+
+</body>
+</html>
