@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.pms.dao.MemberDao">
+<!-- 프라이머리키일때는 result 대신 id를 쓴다 -->
+<!-- 컬럼과 프라퍼티를 연결 함-->
+<resultMap type="Member" id="MemberMap">
+    <id column="mid" property="id"/>
+    <result column="email" property="email"/>
+    <result column="pwd" property="password"/>
+</resultMap>
+
+<!-- DB테이블의 컬럼명과 Member객체에 프로퍼티명이 서로 다르면 별명을 설정하여 맞춰준다
+    ex) select mid as id 나 select mid id 나 똑같이 mid를 id로 불러주세요라는 뜻 -->
+  <select id="selectList" resultMap="MemberMap" parameterType="map">
+    select mid, email from pms2_member
+    <if test="startIndex !=null and pageSize !=null">
+     limit #{startIndex}, #{pageSize}
+    </if>
+  </select>
+
+  <select id="selectOne" resultMap="MemberMap" parameterType="string">
+    select mid, email from pms2_member where mid=#{id}
+  </select>
+  
+  <update id="update" parameterType="Member">
+    update pms2_member set email=#{email}, pwd=password(#{password}) where mid=#{id}
+  </update>
+  
+  <delete id="delete" parameterType="string">
+    delete from pms2_member where mid=#{id}
+  </delete>
+  
+  <insert id="insert" parameterType="Member">
+    insert into pms2_member(mid,email,pwd) values(#{id},#{email},password(#{password}))
+  </insert>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from pms2_member
+  </select>
+  
+</mapper>

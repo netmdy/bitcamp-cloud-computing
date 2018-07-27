@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바 스크립트 </title>
+<style type="text/css">
+#resultDiv {
+    height: 200px;
+    border: 1px solid red;
+} 
+</style>
+</head>
+<body>
+<h1>AJAX 비동기 요청 - 서버의 응답결과 받기</h1>
+
+	<button id="btn1">버튼</button> 
+
+	<div id="resultDiv"></div>
+
+<script type="text/javascript">
+"use strict"
+
+/*
+AJAX(Asynchronous JavaScript And XML)
+ 비동기 요청에서 서버가 보낸 응답 결과를 받는 방법
+ 서버의 응답이 왔을 때 호출 될 메서드를
+ XMLHttpRequest에 등록한다.
+ */
+
+ btn1.onclick = function() {
+    // 1. HTTP 요청을 수행할 객체 준비
+    var xhr = new XMLHttpRequest();
+    
+    // 요청 상태가 변할 때 마다 호출될 메서드 등록
+    // xhr.readyState : 요청 상태를 가리키는 프로퍼티이다.
+    // 0 : 객체 준비
+    // 1 : open() 호출 후 서버에 연결된 후
+    // 2 : send() 호출 후 서버에 요청을 보낸 후
+    // 3 : 서버에서 응답 결과를 받는 중
+    // 4 : 서버의 응답이 완료됨.
+    xhr.onreadystatechange = function(){
+        // 우리가 관심 있는것은 서버에서 응답을 완료한 경우
+        // 따라서 readyState값이 4인경우만 처리하면 된다.
+      if (xhr.readyState < 4) return;
+      if (xhr.status != 200){
+          alert("오류 발생 ㅇㅅㅇ");
+          return;
+      }
+      
+      // 서버의 응답 결과가 정상적인지 아니면 오류인지 확인하는 방법
+      // status 코드 값을 확인한다.
+      if (xhr.status == 200){
+		  console.log(xhr.responseText);
+		  resultDiv.innerHTML =xhr.responseText;
+      }     
+              
+    };
+    
+    // 2. 서버에 연결
+    // 첫 번째 파라미터 : HTTP 메서드 (GET, POST, HEAD)
+    // 두 번째 파라미터 : URL
+    // 세 번째 파라미터 : 비동기 요청 여부 
+    // 아래와 같이 존재하지 않는 파라미터를 요청하면 오류가 난다.
+    xhr.open('GET', 'ex01-1ㅌ.jsp', true);
+//    xhr.open('GET', 'ex01-1.jsp', true);
+    
+    // 3. 서버에 요청 정보를 보낸다.
+    // 별도의 스레드를 통해 서버에 요청을 보냄
+    // 그리고 서버의 응답으 ㄹ기다리지 않고 
+    // 즉시 다음 명령을 실행한다.
+    xhr.send();
+
+    // 4. 서버에서 받은 응답 데이터를 추출한다.
+  //      서버에서 응답이 오기 전에 서버가 보낸 응답 결과를
+//        출력 하기 때문에 출력 결과는 없다.
+}
+  
+</script>
+
+</body>
+</html>

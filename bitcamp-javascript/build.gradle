@@ -21,8 +21,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     
     // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
-    // providedcompile 빌드할 때 사용 베포에는 제외
-    providedcompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    //providedCompile 빌드할 때 사용 베포에는 제외
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    
+    // JSP 확장 태그인 JSTL 라이브러리
+    compile group: 'javax.servlet', name: 'jstl', version: '1.2'
     
 }
 

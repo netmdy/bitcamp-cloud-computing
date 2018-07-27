@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-<h1>AJAX 동기 요청 - 동기 방식 계산기구현</h1>
+<h1>AJAX 동기 요청 - 동기 방식의 문제점을 비동기로 해결</h1>
 <input id="iA" type="text">
 <select id="iOp">
     <option value="%2B">+</option>
@@ -47,10 +47,31 @@ AJAX(Asynchronous JavaScript And XML)
     console.log(iA.value, iOp.value, iB.value);
     
      var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'ex01-2.jsp?a='+ iA.value +
+     
+     // 서버에서 응답이 왔을 때 출력하게 한다
+     xhr.onreadystatechange = function(){
+         // 우리가 관심 있는것은 서버에서 응답을 완료한 경우
+         // 따라서 readyState값이 4인경우만 처리하면 된다.
+       if (xhr.readyState < 4) return;
+       if (xhr.status != 200){
+           alert("오류 발생 ㅇㅅㅇ");
+           return;
+       }
+       
+       // 서버의 응답 결과가 정상적인지 아니면 오류인지 확인하는 방법
+       // status 코드 값을 확인한다.
+       if (xhr.status == 200){
+		   console.log(xhr.responseText);
+		   resultDiv.innerHTML =xhr.responseText;
+       }     
+               
+     };
+    xhr.open('GET', 'ex01-3.jsp?a='+ iA.value +
             '&op='+ iOp.value +
-            '&b=' + iB.value, false);
+            '&b=' + iB.value, true);
     xhr.send();
+// 비동기 요청에서는 send()를 호출한 후 바로 리턴한다
+/// 따라서 동기 요청 때처럼 화면이 벽돌이 되는 상황을 피할수 있다.
     console.log(xhr.responseText);
     resultDiv.innerHTML =xhr.responseText;
    

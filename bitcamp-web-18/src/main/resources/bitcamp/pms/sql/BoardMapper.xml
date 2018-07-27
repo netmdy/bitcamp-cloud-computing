@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.pms.dao.BoardDao">
+
+<!-- DB테이블의 컬럼명과 Member객체에 프로퍼티명이 서로 다르면 별명을 설정하여 맞춰준다
+    ex) select mid as id 나 select mid id 나 똑같이 mid를 id로 불러주세요라는 뜻 -->
+  <select id="selectList" resultType="Board" parameterType="map">
+    select bno,titl,cdt from pms2_board
+        <if test="startIndex !=null and pageSize !=null">
+     limit #{startIndex}, #{pageSize}
+    </if>
+  </select>
+
+  <select id="selectOne" resultType="Board" parameterType="int">
+    select bno,titl,cont,cdt from pms2_board where bno=#{bno}
+  </select>
+  
+  <update id="update" parameterType="Board">
+    update pms2_board set titl=#{titl}, cont=#{cont}, cdt=now() where bno=#{bno}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from pms2_board where bno=#{bno}
+  </delete>
+  
+  <insert id="insert" parameterType="Board">
+  insert into pms2_board(titl,cont,cdt) values(#{titl},#{cont},now())
+  </insert>
+  
+    <select id="countAll" resultType="int">
+    select count(*) from pms2_board
+  </select>
+  
+</mapper>
