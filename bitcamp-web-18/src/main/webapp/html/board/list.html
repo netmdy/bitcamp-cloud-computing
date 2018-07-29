@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>게시물 목록</title>
+</head>
+<body>
+<h1>게시물 목록</h1>
+<p><a href='form'>새 글</a></p>
+<table id="eListTable" border='1'>
+<thead>
+<tr>
+    <th>번호</th><th>제목</th><th>등록일</th>
+</tr>
+</thead>
+<tbody></tbody>
+
+</table>
+<button id="ePrevBtn">이전</button>
+<span id="ePageNo"></span>
+<button id="eNextBtn">다음</button>
+
+<script type="text/javascript">
+"use strict"
+
+let tbody = document.querySelector('#eListTable > tbody');
+let data = null;
+var qs = location.href.split('?');
+var paramMap = {};
+if(qs.length >1){
+    var params = qs[1].split('&');
+        for (var i in params){
+            var kv = params[i].split('=');
+            paramMap[kv[0]] = kv[1];
+        }
+}
+var {page, size} = paramMap;
+
+if (page != undefined && size != undefined){
+    loadList(page,size);
+}else{
+    loadList(1,3);
+}
+
+ePrevBtn.onclick = function(){
+    loadList(data.page -1, data.size)
+}
+eNextBtn.onclick =function(){
+    loadList(data.page +1, data.size)
+}
+
+function loadList(page, size){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState <4 ) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        };
+        data = JSON.parse(xhr.responseText);
+        console.log(data.list);
+        tbody.innerHTML = "";
+        for (var i in data.list){
+            var tr = document.createElement("tr");
+            tr.innerHTML = 
+                `<td>${data.list[i].bno}</td><td><a href='#' data-bno='${data.list[i].bno}' onclick='clickViewLink(event)'>
+                ${data.list[i].titl}</a></td><td>${data.list[i].cdt}</td>`;
+        tbody.appendChild(tr);
+        }
+        ePageNo.innerHTML = data.page;
+        if (data.page <= 1){
+            ePrevBtn.setAttribute("disabled","")
+        }else{
+            ePrevBtn.removeAttribute("disabled")
+        };
+        if (data.page >= data.totalPage){
+            eNextBtn.setAttribute("disabled","")
+        }else{
+            eNextBtn.removeAttribute("disabled")
+        };
+
+    }
+    xhr.open('GET', `../../json/board/list?page=${page}&size=${size}`, true);
+    xhr.send();
+}    
+function clickViewLink(event){
+	event.preventDefault();
+	var bno = event.currentTarget.getAttribute('data-bno');
+	location.href = `view.html?no=${bno}&page=${data.page}&size=${data.size}`;
+}
+
+
+</script>
+</body>
+</html>
