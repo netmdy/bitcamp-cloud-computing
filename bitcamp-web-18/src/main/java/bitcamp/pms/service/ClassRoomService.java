@@ -30,8 +30,8 @@ public class ClassRoomService {
         
     }
 
-    public void delete(int no) {
-         classRoomDao.delete(no);
+    public int delete(int no) {
+         return classRoomDao.delete(no);
         
     }
 

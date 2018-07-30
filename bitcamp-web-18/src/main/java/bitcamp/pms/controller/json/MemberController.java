@@ -38,11 +38,7 @@ public class MemberController {
             return data;
 
     }
-    
-    @GetMapping("form")
-    public void form() {
-    }
-    
+
     @PostMapping("add")
     public Object add(Member member) throws Exception {
         
