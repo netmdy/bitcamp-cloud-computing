@@ -27,6 +27,11 @@
     <url-pattern>/app/*</url-pattern>
 </filter-mapping>
 
+<filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/json/*</url-pattern>
+</filter-mapping>
+
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

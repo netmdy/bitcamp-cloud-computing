@@ -45,27 +45,39 @@ public class BoardController {
     }
 
     @PostMapping("add")
-    public String add(Board board) throws Exception {
+    public Object add(Board board) throws Exception {
 
+        HashMap<String, Object> result = new HashMap<>();
         boardService.add(board);
-        return "redirect:list";
+        result.put("status", "success");
+        return result;
     }
 
     @RequestMapping("delete")
-    public String delete(int no) throws Exception {
+    public Object delete(int no) throws Exception {
 
-        boardService.delete(no);
-        return "board/delete";
+        HashMap<String, Object> result = new HashMap<>();
+        if (boardService.delete(no) == 0) {
+            result.put("staus", "fail");
+            result.put("error", "해당 게시글이 없습니다.");
+        } else {
+            result.put("status","success");
+        }
+        return result;
+        
     }
     
     @RequestMapping("update")
-    public String update(Board board) throws Exception {
+    public Object update(Board board) throws Exception {
         
-                if (boardService.update(board) == 0) {
-                    throw new Exception("업데이트가 적용 되지 않았어요");
-                }
-                return "board/update";
-
+        HashMap<String, Object> result = new HashMap<>();
+        if (boardService.update(board) == 0) {
+            result.put("staus", "fail");
+            result.put("error", "해당 게시글이 없습니다.");
+        } else {
+            result.put("status","success");
+        }
+        return result;
     }
     
     @RequestMapping("view/{no}")

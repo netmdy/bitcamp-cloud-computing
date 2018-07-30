@@ -30,8 +30,8 @@ public class BoardService {
         
     }
 
-    public void delete(int no) {
-         boardDao.delete(no);
+    public int delete(int no) {
+         return boardDao.delete(no);
         
     }
 

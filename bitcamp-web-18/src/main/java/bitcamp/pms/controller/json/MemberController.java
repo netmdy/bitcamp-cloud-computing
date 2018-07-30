@@ -44,29 +44,39 @@ public class MemberController {
     }
     
     @PostMapping("add")
-    public String add(Member member) throws Exception {
+    public Object add(Member member) throws Exception {
         
+            HashMap<String, Object> result = new HashMap<>();
             memberService.add(member);
-            return "redirect:list";
+            result.put("status", "success");
+            return result;
     }
     
     @RequestMapping("delete")
-    public String delete(String id) throws Exception {
-        
-                memberService.delete(id);
-                return "redirect:list";
+    public Object delete(String id) throws Exception {
+                
+        HashMap<String, Object> result = new HashMap<>();
+        if (memberService.delete(id) == 0) {
+            result.put("status","fail");
+            result.put("error","해당 아이디가 없습니다.");
+        } else {
+            result.put("status", "success");
+        }
+        return result;
     }
     
     @RequestMapping("update")
-    public String update(Member member)
+    public Object update(Member member)
             throws Exception {
-        
+        HashMap<String, Object> result = new HashMap<>();
             if (memberService.update(member) == 0) {
-                return "member/updatefail";
+                result.put("status","fail");
+                result.put("error","해당 아이디가 없습니다.");
 
             } else {
-                return "redirect:list";
+                result.put("status", "success");
             }
+            return result;
     }
     
     @RequestMapping("view/{id}")

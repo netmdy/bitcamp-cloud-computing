@@ -15,11 +15,12 @@
 <tr><th>내용</th>
     <td><textarea id='eCont' rows='10' cols='60'></textarea></td></tr>
 <tr><th>등록일</th><td id='eCdt'></td></tr>
+</table>
 <p>
-
    <button id="eListBtn" type="button">목록</button>
-   <button id-"eUpdateBtn" type="button">변경</button>
-   <button id="eDeleteBtn" type="button">삭제</button>
+   <button id="eUpdateBtn" type="button" class="viewform">변경</button>
+   <button id="eDeleteBtn" type="button" class="viewform">삭제</button>
+   <button id="eAddBtn" type="button" class="newform">등록</button>
    </p>
    </form>
 <script type="text/javascript" src="../js/common.js"></script>
@@ -31,9 +32,15 @@ var data = null;
 var {no, page, size} = parseQuery(location.href);
 
 if (no == undefined){
-    alert("해당 게시물이 없습니다.");
-    location.href = "list.html";
+    var el = document.querySelectorAll('.viewform');
+    for (var e of el){
+        e.style.display = 'none';
+    }
 }else{
+    var el = document.querySelectorAll('.newform');
+    for (var e of el){
+        e.style.display = 'none';
+    }
      var xhr = new XMLHttpRequest();
     
     xhr.onreadystatechange = function(){
@@ -53,7 +60,7 @@ if (no == undefined){
         eNo.value = data.board.bno;
         eTitle.value = data.board.titl;
         eCont.value = data.board.cont;
-        eCdt.innerHTML = `<td>${data.board.cdt}</td>`;
+        eCdt.innerHTML = `<td id='eCdt'>${data.board.cdt}</td>`;
     
     };
     
@@ -62,7 +69,80 @@ if (no == undefined){
     xhr.send();
 }
 eListBtn.onclick = function() {
-    location.href = `list.html?page=${page}&size=${size}`;
+    if (no == undefined){
+            location.href = `list.html`;
+    }else{
+            location.href = `list.html?page=${page}&size=${size}`;
+    }
+}
+eUpdateBtn.onclick = function() {
+    console.log(document.getElementById('eCdt').childNodes[0].nodeValue)
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function(){
+    
+      if (xhr.readyState < 4) return;
+      if (xhr.status != 200){
+          alert("오류 발생 ㅇㅅㅇ");
+          return;
+      }
+     
+        data = JSON.parse(xhr.responseText);
+        if (data.status == 'success'){
+            location.href = `list.html?page=${page}&size=${size}`;
+        }else{
+            alert('변경 오류 입니다.');
+           console.log(data.error);
+        }
+    };
+    
+    xhr.open('POST','../../json/board/update',true);
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.send(`bno=${eNo.value}&titl=${eTitle.value}&cont=${eCont.value}`);
+}
+
+eDeleteBtn.onclick = function () {
+    var xhr = new XMLHttpRequest();
+ 
+    xhr.onreadystatechange = function(){
+ 
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        }
+ 
+        //서버에서 받은 JSON 문자열을 파싱하여 자바스크립트 객체로 바꾼 다음에 사용
+        let data = JSON.parse(xhr.responseText);
+        if (data.status == 'success'){
+            location.href = `list.html?page=${page}&size=${size}`;
+        }else{
+            alert("삭제 오류 입니다.")
+            console.log(data.error);
+        }
+    };
+ 
+    xhr.open('GET', `../../json/board/delete?no=${eNo.value}`,true);
+//    xhr.open('GET', `test.jsp`,true);
+    xhr.send();
+}
+
+eAddBtn.onclick = function () {
+    var xhr = new XMLHttpRequest();
+ 
+    xhr.onreadystatechange = function(){
+ 
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        }
+            location.href = `list.html`;
+    };
+    xhr.open('POST', '../../json/board/add',true);
+ 
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.send(`titl=${eTitle.value}&cont=${eCont.value}`);
 }
 </script>
 

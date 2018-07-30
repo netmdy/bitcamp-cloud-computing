@@ -40,8 +40,8 @@ public class MemberService {
         
         int count =memberDao.update(member);
         
-        if (count != 100)
-            throw new RuntimeException("테스트용 예외 발생");
+/*        if (count != 100)
+            throw new RuntimeException("테스트용 예외 발생");*/
         
         return count;
     }
