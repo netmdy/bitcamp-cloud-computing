@@ -19,18 +19,30 @@ public class TeamController {
     @Autowired TeamService teamService;
 
     @RequestMapping("add")
-    public String add(Team team) throws Exception {
-        teamService.add(team);
-        return "redirect:list";
+    public Object add(Team team) throws Exception {
+        
+        HashMap<String, Object> result = new HashMap<>();
+        if (teamService.add(team) == 0) {
+            result.put("status","fail");
+            result.put("error","해당 팀이 이미 존재 합니다");
+        }else {
+            result.put("status","success");
+        }
+        return result;
     }
     
     @RequestMapping("delete")
-    public String delete(@RequestParam("name") String name) throws Exception {
+    public Object delete(@RequestParam("name") String name) throws Exception {
+        
+        HashMap<String, Object> result = new HashMap<>();
         int count = teamService.delete(name);
         if (count == 0) {
-            throw new Exception ("해당 팀이 없습니다.");
+            result.put("status","fail");
+            result.put("error","해당 팀이 없습니다.");
+        }else {
+            result.put("status","success");
         }
-        return "redirect:list";
+        return result;
     }
     
     @RequestMapping("list")
@@ -49,13 +61,17 @@ public class TeamController {
     }
     
     @RequestMapping("update")
-    public String update(Team team) throws Exception {
+    public Object update(Team team) throws Exception {
         
+        HashMap<String, Object> result = new HashMap<>();
         int count = teamService.update(team);
         if (count == 0) {
-            throw new Exception("<p>해당 팀이 존재하지 않습니다.</p>");
+            result.put("status","fail");
+            result.put("error","해당 팀이 존재하지 않습니다");
+        }else {
+            result.put("status","success");
         }
-        return "redirect:list";
+        return result;
     }
     
     @RequestMapping("view/{name}")

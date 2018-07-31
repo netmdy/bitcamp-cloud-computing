@@ -39,16 +39,15 @@
 </p>
 </form>
 
-<h2>회원 목록</h2>
+<h2 class="viewform">회원 목록</h2>
 <form action='member/add' method='post'>
-<input type='text' id='eMemberId' placeholder='회원아이디'>
+<input type='text' id='eMemberId' class="viewform" placeholder='회원아이디'>
 <input type='hidden' id='eTeamName'>
-<button>추가</button>
+<button id="eTmAddBtn" type="button" class="viewform">추가</button>
 </form>
 <table border='1' id="eListTable" class="viewform">
 <tr><th>아이디</th><th>이메일</th><th> </th></tr>
 <tbody></tbody>
-
 
 </table>
 <script type="text/javascript" src="../js/common.js"></script>
@@ -56,13 +55,17 @@
 var data = null;
 let tbody = document.querySelector('#eListTable > tbody');
 var {name, page, size} = parseQuery(location.href);
-if (name == undefined){// 아이디를 지정하지 않으면 입력폼
-    var el = document.querySelectorAll('.viewform');
+console.log('name :',name,page,size)
+if (name == undefined || page == undefined){
+	console.log('if문 들어옴');
+    
+	var el = document.querySelectorAll('.viewform');
     for (var e of el){
         e.style.display = 'none';
     }
     eName.removeAttribute("readonly");
 }else{
+	console.log('else문 들어옴');
     var el = document.querySelectorAll('.newform');
     for (var e of el){
         e.style.display = 'none';
@@ -103,11 +106,10 @@ if (name == undefined){// 아이디를 지정하지 않으면 입력폼
             tr.innerHTML = 
 			   `<td><input type="text" id="eId" readonly value=${team.id}></td>
 			    <td><input type="email" id="eEmail" value=${team.email} readonly></td>
-			    <td><a href='#'>삭제</a></td>`;
+			    <td><a href='#' data-id='${team.id}' onclick='eIdClick(event)'>삭제</a></td>`;
 			    tbody.appendChild(tr);
             }
         }
-			    //<td><a href='member/delete?teamName=${team.name}&memberId=${team.id}'>삭제</a></td>`;
     
     };
     
@@ -121,6 +123,140 @@ eListBtn.onclick = function() {
     } else {
         location.href = 'list.html';
     }
+}
+
+eUpdateBtn.onclick = function () {
+	var eDes = document.getElementById('eDescription').value;
+     var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        }
+
+        //서버에서 받은 JSON 문자열을 파싱하여 자바스크립트 객체로 바꾼 다음에 사용
+        let data = JSON.parse(xhr.responseText);
+        if (data.status == 'success'){
+        	window.location.reload(true);
+        }else{
+            alert("변경 오류 입니다.")
+            console.log(data.error);
+        }
+    };
+    xhr.open('POST', '../../json/team/update',true);
+
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.send(
+		`name=${eName.value}&description=${eDes}&maxQty=${eMaxQty.value}&startDate=${eStartDate.value}&endDate=${eEndDate.value}`);
+ 
+}
+
+eDeleteBtn.onclick = function () {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        }
+
+        //서버에서 받은 JSON 문자열을 파싱하여 자바스크립트 객체로 바꾼 다음에 사용
+        let data = JSON.parse(xhr.responseText);
+        if (data.status == 'success'){
+            location.href = `list.html?page=${page}&size=${size}`;
+        }else{
+            alert("삭제 오류 입니다.")
+            console.log(data.error);
+        }
+    };
+
+    xhr.open('GET', `../../json/team/delete?name=${eName.value}`,true);
+    xhr.send();
+}
+
+eAddBtn.onclick = function () {
+	var eDes = document.getElementById('eDescription').value;
+	var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ"); 
+            return;
+        }
+            location.href = `list.html`;
+    };
+    xhr.open('POST', '../../json/team/add',true);
+
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.send(
+    `name=${eName.value}&description=${eDes}&maxQty=${eMaxQty.value}&startDate=${eStartDate.value}&endDate=${eEndDate.value}`);
+}
+// 회원 삭제
+function eIdClick(e) {
+	e.preventDefault();
+	var id = event.currentTarget.getAttribute('data-id');
+	console.log(id)
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        }
+
+        //서버에서 받은 JSON 문자열을 파싱하여 자바스크립트 객체로 바꾼 다음에 사용
+        let data = JSON.parse(xhr.responseText);
+        if (data.status == 'success'){
+        	alert("회원이 삭제 되었습니다.");
+        	window.location.reload(true);
+        }else{
+            alert("삭제 오류 입니다.")
+            console.log(data.error);
+        }
+    };
+
+    xhr.open('GET', 
+  		`../../json/team/member/delete?memberId=${id}&teamName=${eTeamName.value}`
+  				,true);
+    xhr.send();
+}
+
+//회원 추가
+eTmAddBtn.onclick = function () {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function(){
+
+        if (xhr.readyState < 4) return;
+        if (xhr.status != 200){
+            alert("오류 발생 ㅇㅅㅇ");
+            return;
+        }
+
+        //서버에서 받은 JSON 문자열을 파싱하여 자바스크립트 객체로 바꾼 다음에 사용
+        let data = JSON.parse(xhr.responseText);
+        if (data.status == 'success'){
+            alert("회원이 추가 되었습니다.");
+            window.location.reload(true);
+        }else{
+            alert("변경 오류 입니다.")
+            console.log(data.error);
+        }
+    };
+    xhr.open('POST', '../../json/team/member/add',true);
+
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.send(`memberId=${eMemberId.value}&teamName=${eTeamName.value}`);
+
 }
 
 </script>

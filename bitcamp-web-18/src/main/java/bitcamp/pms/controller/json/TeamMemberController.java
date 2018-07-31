@@ -2,6 +2,7 @@ package bitcamp.pms.controller.json;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,16 +14,11 @@ import bitcamp.pms.service.TeamService;
 @RequestMapping("/team/member")
 public class TeamMemberController {
     
+    @Autowired
     TeamService teamService;
+
+    @Autowired
     MemberService memberService;
-    
-    public TeamMemberController(
-            TeamService teamService,
-            MemberService memberService) {
-        
-        this.teamService = teamService;
-        this.memberService = memberService;
-    }
     
     @RequestMapping("add")
     public Object add(
@@ -44,6 +40,7 @@ public class TeamMemberController {
             result.put("message", "이미 등록된 회원입니다.");
         }
         teamService.addMember(teamName, memberId);
+        result.put("status","success");
         return result;
     }
     
