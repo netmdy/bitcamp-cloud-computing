@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>팀 목록</h1>
-<p><a href='form'>새 팀</a></p>
+<p><a href='view.html'>새 팀</a></p>
 <table id="eListTable" border='1'>
 <thead>
 <tr>
@@ -86,8 +86,8 @@ function loadList(page, size){
 function clickViewLink(event){
     event.preventDefault();
 // 이벤트가 발생된 현재 객체 this
-    var id = event.currentTarget.getAttribute('data-id');
-    location.href = `view.html?id=${id}&page=${data.page}&size=${data.size}`;
+    var id = event.currentTarget.getAttribute('data-name');
+    location.href = `view.html?name=${id}&page=${data.page}&size=${data.size}`;
 }
 
 </script>

@@ -1,30 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='UTF-8'>
-<title>멤버 보기</title>
-</head>
-<body>
-<h1>멤버 보기 :D</h1>
-
-<form action='../update' method='post' >
-   <table border='1'>
-    <tr><th>아이디</th><td>
-        <input type='text' id='eId' readonly></td></tr>
-    <tr><th>이메일</th>
-        <td><input type='email' id='eEmail'></td></tr>
-    <tr><th>암호</th>
-        <td><input type='password' id='ePassword'></td></tr>
-   </table>
-   <p>
-   <button id="eListBtn" type="button">목록</button>
-   <button id="eUpdateBtn" type="button" class="viewform">변경</button>
-   <button id="eDeleteBtn" type="button" class="viewform">삭제</button>
-   <button id="eAddBtn" type="button" class="newform">등록</button>
-   </p>
-   </form>
-<script type="text/javascript" src="../js/bit.min.js"></script>
-<script type="text/javascript">
 "use strict"
 
 var data = null;
@@ -73,28 +46,28 @@ $(eListBtn).click(function() {
 
 $(eUpdateBtn).click(function () {
     $.post('../../json/member/update', {
-	        id: $(eId).val(),
-	        password: $(ePassword).val(),
-	        email: $(eEmail).val()},
+            id: $(eId).val(),
+            password: $(ePassword).val(),
+            email: $(eEmail).val()},
         function(data) {
-	        if (data.status == 'success'){
-	            location.href = `list.html?page=${page}&size=${size}`;
-	        }else{
-	            alert("변경 오류 입니다.")
-	            console.log(data.error);
-	        }
+            if (data.status == 'success'){
+                location.href = `list.html?page=${page}&size=${size}`;
+            }else{
+                alert("변경 오류 입니다.")
+                console.log(data.error);
+            }
         },'json')
 });
 
 $(eDeleteBtn).click(function () {
    $.getJSON(`../../json/member/delete?id=${eId.value}`,
            function(data){
-	        if (data.status == 'success'){
-	            location.href = `list.html?page=${page}&size=${size}`;
-	        }else{
-	            alert("삭제 오류 입니다.")
-	            console.log(data.error);
-	        }
+            if (data.status == 'success'){
+                location.href = `list.html?page=${page}&size=${size}`;
+            }else{
+                alert("삭제 오류 입니다.")
+                console.log(data.error);
+            }
    });
 });
 
@@ -112,8 +85,3 @@ $(eAddBtn).click(function () {
         }
     },'json')
 });
-     
-</script>
-
-</body>
-</html>

@@ -58,7 +58,7 @@ public class TeamController {
         return "redirect:list";
     }
     
-    @RequestMapping("{name}")
+    @RequestMapping("view/{name}")
     public Object view(
             @PathVariable String name
             ) throws Exception {

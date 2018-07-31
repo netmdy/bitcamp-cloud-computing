@@ -10,67 +10,120 @@
 <table border='1'>
 <tr>
     <th>팀명</th>
-    <td><input type="text" name="name" value='${team.name}' readonly></td>
+    <td><input type="text" id="eName" readonly></td>
 </tr>
 <tr>
     <th>설명</th>
-    <td><textarea name="description" 
-        rows="6" cols="60">${team.description}</textarea></td>
+    <td><textarea id="eDescription" 
+        rows="6" cols="60"></textarea></td>
 </tr>
 <tr>
     <th>최대인원</th>
-    <td><input type="number" name="maxQty" value='${team.maxQty}'></td>
+    <td><input type="number" id="eMaxQty" ></td>
 </tr>
 <tr>
     <th>시작일</th>
-    <td><input type="date" name="startDate" value='${team.startDate}'></td>
+    <td><input type="date" id="eStartDate" ></td>
 </tr>
 <tr>
     <th>종료일</th>
-    <td><input type="date" name="endDate" value='${team.endDate}'></td>
+    <td><input type="date" id="eEndDate" ></td>
 </tr>
 </table>
 <p>
-<a href='list'>목록</a>
-<button>변경</button>
-<a href='delete?name=${team.name}'>삭제</a>
-<a href='${team.name}/task/list'>작업목록</a>
+<button id="eListBtn" type="button">목록</button>
+   <button id="eUpdateBtn" type="button" class="viewform">변경</button>
+   <button id="eDeleteBtn" type="button" class="viewform">삭제</button>
+   <button id="eAddBtn" type="button" class="newform">등록</button>
+<a href='${team.name}/task/list' class="viewform">작업목록</a>
 </p>
 </form>
 
-<div include="../member/list.html"></div> 
-<script>
-function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /*loop through a collection of all HTML elements:*/
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("include");
-    if (file) {
-      /*make an HTTP request using the attribute value as the file name:*/
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-          /*remove the attribute, and call this function once more:*/
-          elmnt.removeAttribute("w3-include-html");
-          includeHTML();
-        }
-      }      
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /*exit the function:*/
-      return;
+<h2>회원 목록</h2>
+<form action='member/add' method='post'>
+<input type='text' id='eMemberId' placeholder='회원아이디'>
+<input type='hidden' id='eTeamName'>
+<button>추가</button>
+</form>
+<table border='1' id="eListTable" class="viewform">
+<tr><th>아이디</th><th>이메일</th><th> </th></tr>
+<tbody></tbody>
+
+
+</table>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript">
+var data = null;
+let tbody = document.querySelector('#eListTable > tbody');
+var {name, page, size} = parseQuery(location.href);
+if (name == undefined){// 아이디를 지정하지 않으면 입력폼
+    var el = document.querySelectorAll('.viewform');
+    for (var e of el){
+        e.style.display = 'none';
     }
-  }
-};
+    eName.removeAttribute("readonly");
+}else{
+    var el = document.querySelectorAll('.newform');
+    for (var e of el){
+        e.style.display = 'none';
+    }
+        var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function(){
+    
+      if (xhr.readyState < 4) return;
+      if (xhr.status != 200){
+          alert("오류 발생 ㅇㅅㅇ");
+          return;
+      }
+     
+    //서버에서 받은 JSON 문자열을 파싱하여 자바스크립트 객체로 바꾼 다음에 사용
+        data = JSON.parse(xhr.responseText);
+        if (data.team == null){
+            alert('팀이 없습니다.');
+            location.href = "list.html";
+            return;
+        }
+        eName.value = data.team.name;
+        eTeamName.value = data.team.name;
+        eDescription.innerHTML = data.team.description;
+        eMaxQty.value = data.team.maxQty;
+        eStartDate.value = data.team.startDate;
+        eEndDate.value = data.team.endDate;
+        
+        tbody.innerHTML = "";
+        console.log(data.team.members)
+        if (data.team.members.length == 0){
+        var tr = document.createElement("tr");
+            tr.innerHTML = '등록된 회원이 없습니다.';
+			    tbody.appendChild(tr);
+        }else{
+            for (var team of data.team.members){
+            var tr = document.createElement("tr");
+            tr.innerHTML = 
+			   `<td><input type="text" id="eId" readonly value=${team.id}></td>
+			    <td><input type="email" id="eEmail" value=${team.email} readonly></td>
+			    <td><a href='#'>삭제</a></td>`;
+			    tbody.appendChild(tr);
+            }
+        }
+			    //<td><a href='member/delete?teamName=${team.name}&memberId=${team.id}'>삭제</a></td>`;
+    
+    };
+    
+    xhr.open('GET',
+            `../../json/team/view/${name}`,true);
+    xhr.send();
+}
+eListBtn.onclick = function() {
+    if (page) {
+       location.href = `list.html?page=${page}&size=${size}`;
+    } else {
+        location.href = 'list.html';
+    }
+}
 
-includeHTML();
 </script>
-
 
 </body>
 </html>

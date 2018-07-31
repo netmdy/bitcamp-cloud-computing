@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='UTF-8'>
-<title>멤버 목록</title>
-
-<body>
-<h1>멤버 목록 :D</h1>
-<p><a href='view.html'>새회원</a></p>
-<table id="eListTable" border='1'>
-<thead>
-    <tr><th>아이디</th><th>이메일</th></tr>
-</thead>
-<tbody></tbody>
-</table>
-<div>
-    <button id="ePrevBtn">이전</button>
-    <span id="ePageNo"></span>
-    <button id="eNextBtn">다음</button>
-</div>
-
-<script type="text/javascript" src="../js/bit.min.js"></script>
-<script type="text/javascript">
 "use strict"
 
 var {page, size} = $.parseQuery(location.href);
@@ -43,7 +20,7 @@ $(eNextBtn).click(function() {
 });
 
 function loadList(page, size){
-    $.getJSON('../../json/member/list', {
+    $.getJSON(serverApiAddr + '/json/member/list', {
         page: page,
         size: size
     },function () {console.log('로딩 성공');}
@@ -73,11 +50,11 @@ function loadList(page, size){
 // 이 방식은 실행 시점에 존재하는 태그에 대해서만 이벤트 핸들러를 등록 할 수 있다.
 /* 
    $('.viewLink').click(function (event){
-	    event.preventDefault();
-	// 이벤트가 발생된 현재 객체 this
-	    var id = $(event.currentTarget).attr('data-id');
-	    location.href = `view.html?id=${id}&page=${data.page}&size=${data.size}`;
-	    }); */
+        event.preventDefault();
+    // 이벤트가 발생된 현재 객체 this
+        var id = $(event.currentTarget).attr('data-id');
+        location.href = `view.html?id=${id}&page=${data.page}&size=${data.size}`;
+        }); */
 // 실행 시점에 존재하지 않더라도 이벤트 핸들러를 등록하는 방법은
 // 앞으로 생성될 태그의 부모에 리스너를 등록하는것
 tbody.on('click','a.viewLink', function(event){
@@ -86,8 +63,3 @@ tbody.on('click','a.viewLink', function(event){
     var id = $(event.target).attr('data-id');
     location.href = `view.html?id=${id}&page=${data.page}&size=${data.size}`;
 })
-</script>
-
-</body>
-</html>
-    
