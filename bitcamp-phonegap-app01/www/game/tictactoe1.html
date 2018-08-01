@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tic tac toe</title>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+  width: 480px;
+  width: 480px;
+}
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+  height: 150px;
+}
+</style>
+</head>
+<body>
+<h1>게임</h1>
+<div class="grid-container" onclick="clickLink(event)">
+  <div id="no1"></div>
+  <div id="no2"></div>
+  <div id="no3"></div>
+  <div id="no4"></div>
+  <div id="no5"></div>
+  <div id="no6"></div>
+  <div id="no7"></div>
+  <div id="no8"></div>
+  <div id="no9"></div>
+</div>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+  var idNo = $('.grid-container > div');
+
+  function clickLink(event){
+      event.preventDefault();
+      console.log(event.target.id)
+        for (var i in idNo){
+          console.log('반복문 들어옴');
+            if(idNo[i].id != event.target.id){
+                console.log(idNo[i].id);
+                idNo[i].html("X");
+            }
+        }
+
+
+  }
+
+  console.log(idNo.length)
+
+</script>
+</body>
+</html>

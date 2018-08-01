@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tic tac toe</title>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+  width: 480px;
+  width: 480px;
+}
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  text-align: center;
+  font-size: 30px;
+  height: 150px;
+}
+</style>
+</head>
+<body>
+<h1>게임</h1>
+<div class="grid-container">
+  <div id="no1"></div>
+  <div id="no2"></div>
+  <div id="no3"></div>
+  <div id="no4"></div>
+  <div id="no5"></div>
+  <div id="no6"></div>
+  <div id="no7"></div>
+  <div id="no8"></div>
+  <div id="no9"></div>
+</div>
+  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script>
+      var countX = 0 ;
+      var countO = 0 ;
+      var result = null;
+
+  $('.grid-container').click(function (e) {
+//      console.log(e.target);
+      $(e.target).html("X");
+      countX += e.target.id.split('no');
+//      console.log(typeof countX[2]);
+//      console.log(typeof parseInt(countX[2]));
+/*      var a = 'no'+1;
+      console.log('aa',aa)
+      $(aa).html("O");*/
+//console.log('leng',countX.length);
+switch (countX.length){
+    case 3:
+    console.log('case3',countX.length);
+    for0(2);
+    break;
+    case 5:
+    console.log('case5',countX.length);
+    for0(4);
+    break;
+    case 7:
+    console.log('case7',countX.length);
+    for0(6);
+    break;
+    case 9:
+    console.log('case9',countX.length);
+    for0(8);
+    break;
+    case 11:
+    console.log('case11',countX.length);
+    for0(10);
+    break;
+
+}
+
+
+if(result == 'success'){
+    for0();
+}
+      function for0(ir) {
+        var comP = Math.floor((Math.random() * 9) + 1);
+        console.log(comP);
+        if (parseInt(countX[ir]) != comP){
+            console.log('들어옴',comP,parseInt(countX[2]));
+            var o = 'no'+ comP;
+            var aa = document.getElementById(o);
+//            console.log(aa);
+            setTimeout(function (){
+                  $(aa).html("O");
+            },1000);
+        }else {
+            console.log('같음',countX[2], comP);
+            result = 'success';
+        }
+      }
+
+      //
+      // for (var i = 0;i<9;i++){
+      //
+      // }
+
+
+      // for(var div of divl){
+      // }
+/*      console.log(countX.length);
+      console.log('x',countX);
+      console.log('x',countX[0],countX[1],countX[2]);*/
+//      var x =$('.grid-container > div').getAttribute('x');
+//      console.log(x);
+
+  })
+
+</script>
+</body>
+</html>

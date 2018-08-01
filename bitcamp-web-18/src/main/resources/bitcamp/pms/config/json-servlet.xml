@@ -43,5 +43,12 @@
     </bean>
     </mvc:message-converters>
 </mvc:annotation-driven>
-     
+
+<!--  AJAX 요청에 대한 Cross Domain 설정 -->
+<mvc:cors>
+<!-- 기본 경로가 /json -->
+    <mvc:mapping path="/**"
+        allowed-origins="*"
+        max-age="100" />
+</mvc:cors>     
 </beans>
