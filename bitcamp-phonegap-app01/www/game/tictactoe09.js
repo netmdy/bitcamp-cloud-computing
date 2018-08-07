@@ -62,8 +62,10 @@ function isCellChecked(no) {
 }
 
 function checkCell(no, gamer) {
+// gamer 면 cell-o 클래스를 넣고 computer면 cell-x를 넣기
     $(cells[no]).addClass(
             gamer == 'computer' ? 'cell-o' : 'cell-x');
+// cellDate[no]번지 안에 gamer면 10을 computer면 1을 넣기
     cellData[no] = gamer == 'computer' ? 10 : 1;
 }
 
