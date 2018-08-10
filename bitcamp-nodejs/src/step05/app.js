@@ -37,6 +37,8 @@ var memberRouter = require('./member')
 // 라우터를 express의 웹서버에 등록
 app.use('/member', memberRouter)
 app.use('/team', require('./team'))
+app.use('/team', require('./board'))
+app.use('/classroom', require('./classRoom'))
 
 // URL에 대해 함수를 연결한다.
 app.get('/hello', (req,res) => {
@@ -49,6 +51,6 @@ app.get('/test03', (req,res) => {
 });
 
 // 서버 실행하기
-app.listen(8001, () => {
+app.listen(8000, () => {
     console.log('서버 실행중 ㅇㅇ')
 });

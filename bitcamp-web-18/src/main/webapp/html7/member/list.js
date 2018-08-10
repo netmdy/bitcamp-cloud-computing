@@ -1,5 +1,6 @@
 "use strict"
 var trTemplateSrc = $('#tr-template-src').text();
+console.log(trTemplateSrc)
 var trTemplateFn = Handlebars.compile(trTemplateSrc);
 
 var {page, size} = $.parseQuery(location.href);

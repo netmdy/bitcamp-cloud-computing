@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>목록</title>
+<link rel="stylesheet"
+	href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/common.css">
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div  id="eList" class="col-3 bg-success">
+<ul></ul>
+			</div>
+			<div class="col-9 bg-warning">
+				<p>test</p>
+			</div>
+		</div>
+	</div>
+
+<script id="li-template-src" type="text/x-handlebars-template">
+{{#each list}}
+<li>
+    <a href='#' data-id='{{name}}' class='viewLink'>{{name}}</a>
+</li>
+{{/each}}
+</script>
+
+<script id="template-src" type="text/x-handlebars-template">
+
+<li>
+    <a href='#' data-id='{{name}}' class='viewLink'>{{name}}</a>
+</li>
+
+</script>
+
+	<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="../js/jquery.bit.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="list.js"></script>
+
+
+</body>
+</html>
