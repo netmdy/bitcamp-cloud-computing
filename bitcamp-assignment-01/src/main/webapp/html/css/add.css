@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.bCenter {
+	text-align: center;
+	margin-top: 350px;
+	margin-bottom: 300px;
+}
+
+.form-control {
+	width: 300px;
+	margin: 0 auto;
+}
+
+label {
+	padding-right: 250px;
+}
+
+h2 {
+	font-weight: bold
+}

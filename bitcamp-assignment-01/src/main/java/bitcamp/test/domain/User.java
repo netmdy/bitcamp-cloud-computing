@@ -2,7 +2,13 @@ package bitcamp.test.domain;
 
 public class User {
 
-    protected int no;
+    protected int no, uno;
+    public int getUno() {
+        return uno;
+    }
+    public void setUno(int uno) {
+        this.uno = uno;
+    }
     protected String name,email,hphone, phone, fax, memo;
     public int getNo() {
         return no;

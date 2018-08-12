@@ -74,5 +74,4 @@
 <!-- .properties 파일을 읽어서 그 데이터를 보관할 객체를 등록 -->
 <context:property-placeholder location="classpath:bitcamp/test/config/jdbc.properties"/>
 
-      
 </beans>

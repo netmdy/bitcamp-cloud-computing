@@ -15,18 +15,31 @@ public class UserService {
     UserDao userDao;
 
     public List<User> list(int no) {
-        
-        System.out.println("list들어옴");
-            return userDao.selectList(no);
+        return userDao.selectList(no);
     }
 
-    public User get(String name) {
-        return userDao.selectOne(name);
+    public User get(int uno) {
+        return userDao.selectOne(uno);
     }
 
-    public Object view(int no) {
-        System.out.println("view들어옴");
-        return userDao.selectView(no);
+    public int update(User user) {
+        int count =userDao.update(user);
+                
+    return count;
+    }
+
+    public int add(User user) {
+
+        return userDao.insert(user);
+    }
+
+    public int delete(int uno) {
+
+        return userDao.delete(uno);
+    }
+
+    public List<User> getSearch(String sName) {
+        return userDao.searchName(sName);
     }
 
 }

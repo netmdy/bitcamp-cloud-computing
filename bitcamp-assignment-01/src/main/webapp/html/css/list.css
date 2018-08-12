@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+.form-control {
+        display: inline-block;
+        width: 350px;
+        height: 2.5em;
+        background-color: #ffffff;
+        border: none;
+        font-size: 2.5em;
+    }
+    .form-control[readonly] {
+        background-color: #ffffff;
+        opacity: 1;
+    }
+    .col-5 {
+        text-align: right;
+        font-size: 2.7em;
+        padding-top: 20px;
+    }
+    .col-6 {
+        text-align: right;
+    }
+    #eList {
+        border-right: 1px solid black;
+    }
+    #eName {
+        font-size: 4em;
+            margin-bottom: 30px;
+    }
+    .dbt {
+        text-align: right;
+    }
+    .col-1 {
+        padding-left: 0px;
+    }
+    .btnG > button{
+       margin: 5px
+    }
+    h3 {
+    margin-top: 20px;
+    display: inline-block;
+    }
+    span.logOut {
+    margin-top: 40px;
+    margin-right: 5px;
+    float: right; 
+    }
+    ul {
+       list-style:none;
+       padding-left: 0px;
+   }
+   .btn-outline-secondary {
+        border: none;
+        width: 100%;
+        font-size: 2em;
+   }
+   body {
+    height:100%;
+   }
+   input#searchName {
+       width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('search.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+   }
+   label[for*='memo'] {
+       padding-top: 5px
+    }

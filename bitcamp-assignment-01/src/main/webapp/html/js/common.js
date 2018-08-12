@@ -1,1 +1,1 @@
-var serverApiAddr = "http://localhost:8080/";
+var serverApiAddr = "http://localhost:8080";

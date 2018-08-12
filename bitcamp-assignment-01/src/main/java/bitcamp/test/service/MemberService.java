@@ -21,4 +21,12 @@ public class MemberService {
         return memberDao.login(member);
     }
     
+    public Member get(String email) {
+        System.out.println("member get 서비스");
+        return memberDao.selectOne(email);
+    }
+
+    public int delete(int no) {
+        return memberDao.delete(no);
+    }
 }

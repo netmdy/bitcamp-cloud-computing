@@ -5,15 +5,28 @@
 <mapper namespace="bitcamp.test.dao.UserDao">
 
   <select id="selectList" resultType="User" parameterType="int">
-    select name from tb_user where no=#{no}
+    select uno, name from tb_user where no=#{no} order by name asc
   </select>
 
-  <select id="selectOne" resultType="User" parameterType="String">
-    select * from tb_user where name=#{name}
+  <select id="selectOne" resultType="User" parameterType="int">
+    select * from tb_user where uno=#{uno}
   </select>
 
-  <select id="selectView" resultType="User" parameterType="int">
-    select * from tb_user where name=#{name}
+   <update id="update" parameterType="User">
+    update tb_user set no=#{no}, name=#{name}, hphone=#{hphone}, phone=#{phone}, fax=#{fax}, email=#{email},memo=#{memo} where uno=#{uno}
+  </update>
+  
+  <insert id="insert" parameterType="User">
+    insert into tb_user (no,name,hphone,phone,fax,email,memo) values(#{no}, #{name}, #{hphone}, #{phone}, #{fax}, #{email},#{memo})
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete from tb_user where uno=#{uno}
+  </delete>
+
+  <select id="searchName" resultType="User" parameterType="String">
+    select uno, name from tb_user where name like CONCAT('%', #{sName}, '%') order by name asc
   </select>
- 
+  <!-- 사용자별 검색하기 위해 no추가 하기
+   select uno, name from tb_user where no=#{no} and name like CONCAT('%', #{sName}, '%') order by name asc -->
 </mapper>

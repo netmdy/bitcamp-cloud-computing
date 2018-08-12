@@ -4,25 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.test.dao.MemberDao">
 
-  <select id="selectList" resultType="Member" parameterType="map">
-    select no, name, email from pms2_member
-    <if test="startIndex !=null and pageSize !=null">
-     limit #{startIndex}, #{pageSize}
-    </if>
-  </select>
-
-  <select id="selectOne" resultType="Member" parameterType="int">
-    select mid, email from pms2_member where mid=#{id}
+  <select id="selectOne" resultType="Member" parameterType="String">
+    select * from tb_member where email=#{email}
   </select>
   
-  <update id="update" parameterType="Member">
-    update pms2_member set email=#{email}, pwd=password(#{password}) where mid=#{id}
-  </update>
-  
-  <delete id="delete" parameterType="string">
-    delete from pms2_member where mid=#{id}
-  </delete>
-
   <select id="login" resultType="int" parameterType="Member">
     select count(*) from tb_member where email=#{email} and password=password(#{password})
   </select>
@@ -31,8 +16,8 @@
     insert into tb_member(name,email,password) values(#{name},#{email},password(#{password}))
   </insert>
   
-  <select id="countAll" resultType="int">
-    select count(*) from pms2_member
-  </select>
+  <delete id="delete" parameterType="int">
+    delete from tb_member where no=#{no}
+  </delete>
   
 </mapper>
