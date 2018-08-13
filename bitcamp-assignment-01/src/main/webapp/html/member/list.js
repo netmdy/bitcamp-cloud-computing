@@ -32,7 +32,7 @@ $(function() {
     	if(sName == ""){
     		loadList(mno);
     	}
-    	$.getJSON(serverApiAddr + `/json/user/search/${sName}`,
+    	$.getJSON(`../../json/user/search/${sName}`,
     			function(result) {
     				data = result;
     				console.log(data.list)
@@ -58,7 +58,7 @@ $(function() {
 });
 
 function loadList(no) {
-    $.getJSON(serverApiAddr + '/json/user/list', {
+    $.getJSON('../../json/user/list', {
         no : no
     }, function() {
         console.log('로딩 성공');
@@ -85,7 +85,7 @@ function loadList(no) {
 }
 ;
 function loadView(uno) {
-    $.getJSON(serverApiAddr + `/json/user/view/${uno}`,
+    $.getJSON(`../../json/user/view/${uno}`,
         function(result) {
             data = result;
 //            console.log(data.user)
@@ -143,7 +143,7 @@ $(add1Btn).click(() => {
 });
 
 $(delBtn).click(function () {
-    $.post(serverApiAddr + '/json/user/delete', {
+    $.post('../../json/user/delete', {
     	uno : $(uno).val()    
 		}, function(data) {
             if (data.status == 'success'){
@@ -158,7 +158,7 @@ $(delBtn).click(function () {
         },'json')
 });
 $(add2Btn).click(function () {
-	$.post(serverApiAddr + '/json/user/add', {
+	$.post('../../json/user/add', {
 		no: mno,
 		name: $(eName).val(),
 		hphone: $(hphone).val(),
@@ -181,7 +181,7 @@ $(add2Btn).click(function () {
 });
 
 $(updateBtn).click(function () {
-	$.post(serverApiAddr + '/json/user/update', {
+	$.post('../../json/user/update', {
 		uno : $(uno).val(),
 		no: $(no).val(),
 		name: $(eName).val(),
@@ -216,7 +216,7 @@ elist.on('click', 'button.viewLink', function(event) {
 $('a#delMember').click(function(event) {
 	event.preventDefault();
 	console.log('ok')
-	$.post(serverApiAddr + '/json/member/delete', {
+	$.post('../../json/member/delete', {
     	no : mno    
 		}, function(data) {
             if (data.status == 'success'){

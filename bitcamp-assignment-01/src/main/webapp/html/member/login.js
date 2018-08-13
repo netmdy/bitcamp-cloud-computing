@@ -3,7 +3,7 @@
 var data = null;
 
 $(loginBtn).click(function () {
-    $.post(serverApiAddr + '/json/member/login', {
+    $.post('../../json/member/login', {
         password: $(ePassword).val(),
         email: $(eEmail).val()},
     function(data) {

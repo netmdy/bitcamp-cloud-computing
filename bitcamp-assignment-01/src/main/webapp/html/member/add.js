@@ -4,7 +4,7 @@ var data = null;
 
 $(addBtn).click(function () {
     console.log($(eName).val())
-    $.post(serverApiAddr + '/json/member/add', {
+    $.post('../../json/member/add', {
         name: $(eName).val(),
         password: $(ePassword).val(),
         email: $(eEmail).val()},

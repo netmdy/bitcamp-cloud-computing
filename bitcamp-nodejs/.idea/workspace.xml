@@ -17,8 +17,8 @@
       <file leaf-file-name="memberAdd.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/memberAdd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="20" column="36" lean-forward="true" selection-end-line="41" selection-end-column="7" />
+            <state relative-caret-position="248">
+              <caret line="22" column="40" lean-forward="true" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -112,7 +112,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="259" />
     <option name="y" value="29" />
     <option name="width" value="1333" />
@@ -206,12 +206,12 @@
       <workItem from="1533602885410" duration="21211000" />
       <workItem from="1533685862513" duration="24942000" />
       <workItem from="1533773538332" duration="23299000" />
-      <workItem from="1533858942860" duration="6180000" />
+      <workItem from="1533858942860" duration="6182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75632000" />
+    <option name="totallyTimeSpent" value="75634000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -223,8 +223,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="259" y="29" width="1333" height="897" extended-state="1" />
-    <editor active="true" />
+    <frame x="259" y="29" width="1333" height="897" extended-state="0" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25328186" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32985386" />
@@ -592,8 +591,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/memberAdd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="20" column="36" lean-forward="true" selection-end-line="41" selection-end-column="7" />
+        <state relative-caret-position="248">
+          <caret line="22" column="40" lean-forward="true" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
         </state>
       </provider>
     </entry>
