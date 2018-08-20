@@ -13,12 +13,12 @@ import bitcamp.assignment.service.MemberService;
 public class MemberServiceImpl implements MemberService {
 
     @Autowired MemberRepository memberRepository;
-
+    
     @Override
     public int add(Member member) {
         return memberRepository.insert(member);
     }
-
+    
     @Override
     public Member getMember(String email, String password) {
         HashMap<String,Object> params = new HashMap<>();
@@ -26,6 +26,9 @@ public class MemberServiceImpl implements MemberService {
         params.put("password", password);
         return memberRepository.findByEmailAndPassword(params);
     }
-    
-    
+
 }
+
+
+
+

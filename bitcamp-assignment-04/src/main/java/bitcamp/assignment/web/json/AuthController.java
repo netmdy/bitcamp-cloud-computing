@@ -15,18 +15,24 @@ import bitcamp.assignment.service.MemberService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-
+    
     @Autowired MemberService memberService;
     
     @PostMapping("signIn")
-    public Object signIn(String email,String password, boolean saveEmail, HttpSession session) {
+    public Object signIn(
+            String email, 
+            String password, 
+            boolean saveEmail,
+            HttpSession session) {
         
         HashMap<String,Object> result = new HashMap<>();
         try {
-            Member loginUser = memberService.getMember(email, password);
-            if (loginUser == null) throw new Exception("로그인 실패");
+            Member loginUser = memberService.getMember(
+                    email, password);
             
-            System.out.println(loginUser.getEmail());
+            if (loginUser == null)
+                throw new Exception("로그인 실패!");
+            
             session.setAttribute("loginUser", loginUser);
             result.put("status", "success");
             
@@ -34,6 +40,14 @@ public class AuthController {
             result.put("status", "fail");
             result.put("message", e.getMessage());
         }
+        
         return result;
     }
 }
+
+
+
+
+
+
+

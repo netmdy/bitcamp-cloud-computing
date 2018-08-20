@@ -1,13 +1,12 @@
 package bitcamp.assignment.repository;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import bitcamp.assignment.domain.Member;
 
 public interface MemberRepository {
 
     int insert(Member member);
+    Member findByEmailAndPassword(Map<String,Object> params);
 
-    Member findByEmailAndPassword(HashMap<String, Object> params);
-    
 }
